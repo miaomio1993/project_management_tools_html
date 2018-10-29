@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="assets/css/xenon-core.css">
+		<link rel="stylesheet" href="assets/css/xenon-forms.css">
+		<link rel="stylesheet" href="assets/css/xenon-components.css">
+		<link rel="stylesheet" href="assets/css/xenon-skins.css">
+		<link rel="stylesheet" href="assets/css/custom.css">
+		<script src="https://cdn.bootcss.com/jquery/1.12.3/jquery.min.js"></script>
+		<title>用户登陆</title>
+	</head>
+	<body class="page-body login-page login-light">
+		<div class="login-container">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="login-form fade-in-effect">
+						<div class="login-header">
+							<a href="#" class="logo">
+								<img src="assets/images/logo-white-bg@2x.png" width="80" />
+							</a>
+							<p>Project management tools</p>
+						</div>
+						<div class="form-group">
+							<input id="username" type="text" class="form-control" placeholder="请输入账号" />
+						</div>
+						<div class="form-group">
+							<input id="password" type="password" class="form-control" placeholder="请输入密码" />
+						</div>
+						<div class="form-group">
+							<button id="login" class="btn btn-primary btn-block text-left">
+								<i class="fa-lock"></i>
+								登&nbsp;&nbsp;陆
+							</button>
+						</div>
+						<div class="login-footer">
+							<a href="register.html">没有账号，立即注册!</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Bottom Scripts -->
+		<script src="assets/js/bootstrap.min.js"></script>
+		<!-- 初始化JS -->
+		<script src="assets/js/initialization.js"></script>
+
+		<script type="text/javascript">
+			$(function() {
+				setTimeout(function() {
+					$(".fade-in-effect").addClass('in');
+				}, 1);
+			})
+			
+			$("#login").click(function() {
+				var username = $("#username").val();
+				var password = $("#password").val();
+				if (username == null || username == "") {
+					alert("请输入用户名");
+					return;
+				}
+				if (password == null || password == "") {
+					alert("请输入密码");
+					return;
+				}
+				$.ajax({
+					type: 'post',
+					url: url + "user/login",
+					data: {
+						username: username,
+						password: password
+					},
+					success: function(data) {
+						if(data.code == 0){
+							// 判断是否支持localStorage存储方式
+							if (window.localStorage) {
+								localStorage.setItem("userToken", data.data);
+								location.href='iframes.html';
+							} else{
+								alert("浏览器版本过低，请更换！");
+							}
+						}else{
+							alert(data.msg);
+						}
+					}
+				});
+			})
+		</script>
+	</body>
+</html>
