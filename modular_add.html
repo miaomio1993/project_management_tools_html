@@ -2,56 +2,57 @@
 	<head>
 		<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
-		<link href="https://cdn.bootcss.com/bootstrap-switch/3.3.4/css/bootstrap3/bootstrap-switch.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-switch/3.3.4/css/bootstrap3/bootstrap-switch.min.css">
 		<link rel="stylesheet" href="assets/css/xenon-core.css">
 		<link rel="stylesheet" href="assets/css/xenon-forms.css">
 		<link rel="stylesheet" href="assets/css/xenon-components.css">
 		<link rel="stylesheet" href="assets/css/xenon-skins.css">
 		<link rel="stylesheet" href="assets/css/custom.css">
+		<script src="https://cdn.bootcss.com/jquery/1.12.3/jquery.min.js"></script>
 		<title>新增模块</title>
 	</head>
 
 	<body style="padding: 15px;">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title">项目名称 - 新增模块</h3>
+				<h3 class="panel-title">新增模块</h3>
 			</div>
 			<div class="panel-body">
 				<div class="form-horizontal">
 					<div class="form-group">
 						<label class="col-sm-2 control-label">模块名称</label>
-						<div class="col-sm-10">
+						<div class="col-sm-6">
 							<input id="id" type="hidden" />
 							<input id="name" type="text" class="form-control" >
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">模块描述</label>
-						<div class="col-sm-10">
+						<div class="col-sm-6">
 							<input id="depict" type="text" class="form-control">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">开始日期</label>
-						<div class="col-sm-10">
+						<div class="col-sm-6">
 							<input id="startTime" type="text" class="form-control" placeholder="yyyy-dd-mm">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">结束日期</label>
-						<div class="col-sm-10">
+						<div class="col-sm-6">
 							<input id="endTime" type="text" class="form-control" placeholder="yyyy-dd-mm">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">是否可看</label>
-						<div class="col-sm-10">
+						<div class="col-sm-6">
 							<input id="isShow" type="checkbox" value="true" checked />
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">&nbsp;</label>
-						<div class="col-sm-10">
+						<div class="col-sm-6">
 							<button id="add" class="btn btn-secondary btn-single">保&nbsp;&nbsp;存</button>
 						</div>
 					</div>
@@ -59,13 +60,14 @@
 			</div>
 		</div>
 
-		<script src="https://cdn.bootcss.com/jquery/1.12.3/jquery.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 		<script src="https://cdn.bootcss.com/bootstrap-switch/3.3.4/js/bootstrap-switch.min.js"></script>
 		<script src="assets/js/initialization.js"></script>
 
 		<script type="text/javascript">
 			$(function() {
+				$("#id").val(getUrlParam("id"));
+				
 				$("#isShow").bootstrapSwitch({
 					onText: "YSE",
 					offText: "NO",
@@ -87,7 +89,7 @@
 					type: 'get',
 					url: url + "project/getInfo",
 					data: {
-						id: getUrlParam("id")
+						id: $("#id").val()
 					},
 					success: function(data) {
 						if(data.code == 0){
@@ -102,12 +104,10 @@
 			});
 
 			$("#add").click(function() {
-				var id = $("#id").val();
 				var name = $("#name").val();
 				var depict = $("#depict").val();
 				var startTime = $("#startTime").val();
 				var endTime = $("#endTime").val();
-				var isShow = $("#isShow").val();
 				if (name == null || name == "") {
 					alert("请输入项目模块名称");
 					return;
@@ -128,12 +128,12 @@
 					type: 'post',
 					url: url + "template/add",
 					data: {
-						id: id,
+						projectId: $("#id").val(),
 						name: name,
 						depict: depict,
 						startTime: startTime,
 						endTime: endTime,
-						isShow: isShow
+						isShow: $("#isShow").val()
 					},
 					success: function(data) {
 						alert(data.msg);

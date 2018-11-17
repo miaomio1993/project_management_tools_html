@@ -5,6 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content="Xenon Boostrap Admin Panel" />
+		
 		<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
 		<link rel="stylesheet" href="assets/css/xenon-core.css">
@@ -12,7 +13,10 @@
 		<link rel="stylesheet" href="assets/css/xenon-components.css">
 		<link rel="stylesheet" href="assets/css/xenon-skins.css">
 		<link rel="stylesheet" href="assets/css/custom.css">
-		<script src="https://cdn.bootcss.com/jquery/1.12.3/jquery.min.js"></script>
+		
+		<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+		<script src="assets/js/initialization.js"></script>
+		
 		<title>页面容器</title>
 	</head>
 	<body class="page-body">
@@ -118,30 +122,16 @@
 						</li>
 						<li>
 							<a href="#">
-								<i class="fa fa-file-archive-o"></i>
-								<span class="title">项目名称</span>
-							</a>
-							<ul>
-								<li>
-									<a href="#">
-										<span class="title" data-url="modular.html">订单模块</span>
-									</a>
-								</li>
-								<li>
-									<a href="#"><span class="title">售后模块</span></a>
-								</li>
-							</ul>
-						</li>
-						<li>
-							<a href="#">
 								<i class="fa fa-user-o"></i>
 								<span class="title" data-url="user.html">用户管理</span>
 							</a>
 						</li>
+						
+						
 						<li>
 							<a href="#">
 								<i class="fa fa-folder-o"></i>
-								<span class="title" data-url="project.html">项目管理</span>
+								<span class="title" data-url="project.html" >项目管理</span>
 							</a>
 						</li>
 					</ul>
@@ -235,33 +225,72 @@
 			<div class="loader-2"></div>
 		</div>
 
-		<!-- Bottom Scripts -->
-		<script src="assets/js/bootstrap.min.js"></script>
-		<script src="assets/js/TweenMax.min.js"></script>
-		<script src="assets/js/resizeable.js"></script>
-		<script src="assets/js/joinable.js"></script>
-		<script src="assets/js/xenon-api.js"></script>
-		<script src="assets/js/xenon-toggles.js"></script>
-
-		<!-- Imported scripts on this page -->
-		<script src="assets/js/xenon-widgets.js"></script>
-		<script src="assets/js/devexpress-web-14.1/js/globalize.min.js"></script>
-		<script src="assets/js/devexpress-web-14.1/js/dx.chartjs.js"></script>
-		<script src="assets/js/toastr/toastr.min.js"></script>
-
-		<!-- JavaScripts initializations and stuff -->
-		<script src="assets/js/xenon-custom.js"></script>
-
 		<script>
+			$(function(){
+				updateMenu();
+			});
+			
+			/**
+			 * 更新项目菜单
+			 */
+			function updateMenu(){
+				$.ajax({
+					type: 'get',
+					url: url + "project/getMenuList",
+					async : false,
+					success: function(data) {
+						if(data.code == 0){
+							data = data.data;
+							var str = "";
+							for (var i = 0; i < data.length; i++) {
+								str += "<li>";
+								str += "	<a href='#'>";
+								str += "		<i class='fa fa-home'></i>";
+								str += "		<span class='title' title='" + data[i].depict + "'>" + data[i].name + "</span>";
+								str += "	</a>";
+								if(data[i].templateDtoList.length > 0){
+									str += "<ul>";
+									str += "<li>";
+									str += "<a href='#'><span class='title' data-url='all_interfaces.html?projectId=" + data[i].id + "'>全部接口</span></a>";
+									str += "</li>";
+									var templateList = data[i].templateDtoList;
+									for (var j = 0; j < templateList.length; j++) {
+										str += "<li>";
+										str += "<a href='#'><span class='title' title='" + templateList[j].depict + "'>" + templateList[j].name + "</span></a>";
+										str += "</li>";
+									}
+									str += "</ul>";
+								}
+								str += "</li>";
+							}
+							$("#main-menu li:first-of-type").after(str);
+						}else{
+							alert(data.msg);
+						}
+					}
+				});
+			}
+			
+			// 点击更新iframe页面
+			$(document).on("click",'#main-menu li',function(){
+				$("#htmlIframe").attr("src", $(this).find("a").find("span").data("url"));
+			});
+			
 			$(document).ready(function() {
 				var windowHeight = $(window).height();
 				$("#htmlIframe").css("height", windowHeight - $(".navbar").height() - 8);
 			});
-
-			$("#main-menu li").click(function() {
-				$("#htmlIframe").attr("src", $(this).find("a").find("span").data("url"));
-			});
+			
 		</script>
+		
+		<!-- Bottom Scripts -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+		<script src="assets/js/TweenLite.min.js"></script>
+		<script src="assets/js/TweenMax.min.js"></script>
+		<script src="assets/js/resizeable.js"></script>
+		<script src="assets/js/xenon-toggles.js"></script>
 
+		<!-- JavaScripts initializations and stuff -->
+		<script src="assets/js/xenon-custom.js"></script>
 	</body>
 </html>

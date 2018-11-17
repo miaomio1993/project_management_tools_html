@@ -9,16 +9,16 @@
 		<link rel="stylesheet" href="assets/css/xenon-skins.css">
 		<link rel="stylesheet" href="assets/css/custom.css">
 		<script src="https://cdn.bootcss.com/jquery/1.12.3/jquery.min.js"></script>
-		<title>项目管理</title>
+		<title>全部接口</title>
 	</head>
 
 	<body>
-		<div class="row" style="padding: 20px 30px 15px; margin: auto;">
-			<div class="col-sm-5">
+		<div class="row" style="padding: 20px 20px 0; margin: auto;">
+			<div class="col-sm-12">
 				<a class="btn btn-white" href="project_add.html">新增项目</a>
 			</div>
 		</div>
-		<div id="projectList">
+		<div id="projectList" style="padding: 20px; margin: auto;">
 		</div>
 
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
@@ -46,11 +46,9 @@
 								str += "<div class='panel-heading'>";
 								str += "<span>" + data[i].name + "</span>";
 								str += "<a class='btn btn-white btn-xs pull-right' href='modular_add.html?id=" + data[i].id + "'>新增模块</a>";
-								str += "<a class='btn btn-white btn-xs pull-right' style='margin-right: 10px;' href='project_up.html?id=" +
-									data[i].id + "'>修改项目</a> ";
+								str += "<a class='btn btn-white btn-xs pull-right' style='margin-right: 10px;' href='project_up.html?id=" + data[i].id + "'>修改项目</a> ";
 								str += "<table id='table" + data[i].id + "' class='table table-striped'>";
-								str +=
-									"<thead><tr><th>ID</th><th>模块名称</th><th>模块描述</th><th>开始日期</th><th>结束日期</th><th>进度</th><th>是否可看</th><th>&nbsp;</th></tr></thead>";
+								str += "<thead><tr><th>ID</th><th>模块名称</th><th>模块描述</th><th>开始日期</th><th>结束日期</th><th>进度</th><th>是否可看</th><th>&nbsp;</th></tr></thead>";
 								str += "<tbody>";
 								str += "</tbody>";
 								str += "</table>";
@@ -58,6 +56,7 @@
 								str += "</div>";
 								$("#projectList").append(str);
 								getTemplateList(data[i].id)
+								str = "";
 							}
 						} else {
 							alert(data.msg);
@@ -83,8 +82,8 @@
 								str += "<td>" + data[i].id + "</td>";
 								str += "<td>" + data[i].name + "</td>";
 								str += "<td>" + data[i].depict + "</td>";
-								str += "<td>" + data[i].startTime + "</td>";
-								str += "<td>" + data[i].endTime + "</td>";
+								str += "<td>" + formatDate(data[i].startTime) + "</td>";
+								str += "<td>" + formatDate(data[i].endTime) + "</td>";
 								str += "<td class='middle-align'>";
 								str += "<div class='progress'>";
 								str += "<div class='progress-bar progress-bar-info' role='progressbar' aria-valuenow='20' aria-valuemin='0' aria-valuemax='100' style='width: 20%'>";
@@ -92,8 +91,12 @@
 								str += "</div>";
 								str += "</div>";
 								str += "</td>";
-								str += "<td><input type='checkbox' class='iswitch iswitch-info' value='" + data[i].show + "'></td>";
-								str += "<td><a href='modular_up.html'><i class='fa fa-pencil' title='编辑'></i></a></td>";
+								if(data[i].isShow == 1){
+									str += "<td>是</td>";
+								} else if(data[i].isShow == 2){
+									str += "<td>否</td>";
+								}
+								str += "<td><a href='modular_up.html?id=" + data[i].id + "'><i class='fa fa-pencil' title='编辑'></i></a></td>";
 								str += "</tr>";
 								$("#table" + projectId).find("tbody").html(str);
 							}

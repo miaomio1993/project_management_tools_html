@@ -8,6 +8,7 @@
 		<link rel="stylesheet" href="assets/css/xenon-components.css">
 		<link rel="stylesheet" href="assets/css/xenon-skins.css">
 		<link rel="stylesheet" href="assets/css/custom.css">
+		<script src="https://cdn.bootcss.com/jquery/1.12.3/jquery.min.js"></script>
 		<title>添加项目</title>
 	</head>
 
@@ -20,25 +21,25 @@
 				<div class="form-horizontal">
 					<div class="form-group">
 						<label class="col-sm-2 control-label">项目名称</label>
-						<div class="col-sm-10">
+						<div class="col-sm-6">
 							<input id="name" type="text" class="form-control">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">项目描述</label>
-						<div class="col-sm-10">
+						<div class="col-sm-6">
 							<input id="depict" type="text" class="form-control">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">是否可看</label>
-						<div class="col-sm-10">
-							<input id="isShow" type="checkbox" value="true" checked />
+						<div class="col-sm-6">
+							<input id="isShow" type="checkbox" checked="" class="iswitch iswitch-info" style="margin-bottom: 0; margin-top: 6px;">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">&nbsp;</label>
-						<div class="col-sm-10">
+						<div class="col-sm-6">
 							<button onclick="add()" class="btn btn-secondary btn-single">保&nbsp;&nbsp;存</button>
 						</div>
 					</div>
@@ -46,7 +47,6 @@
 			</div>
 		</div>
 
-		<script src="https://cdn.bootcss.com/jquery/1.12.3/jquery.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 		<script src="https://cdn.bootcss.com/bootstrap-switch/3.3.4/js/bootstrap-switch.min.js"></script>
 		<script src="assets/js/initialization.js"></script>
@@ -82,6 +82,14 @@
 				}
 				if (depict == null || depict == "") {
 					alert("请输入项目描述");
+					return;
+				}
+				if (startTime == null || startTime == "") {
+					alert("请输入开始时间");
+					return;
+				}
+				if (endTime == null || endTime == "") {
+					alert("请输入截至时间");
 					return;
 				}
 				$.ajax({
