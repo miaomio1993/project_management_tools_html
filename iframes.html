@@ -226,10 +226,17 @@
 		</div>
 
 		<script>
+
 			$(function(){
 				updateMenu();
+				// 每次刷新获取上次点击地址
+                $("#htmlIframe").attr("src", localStorage.getItem("varIfom"));
 			});
-			
+
+            $('#htmlIframe').load(function() {
+                localStorage.setItem("varIfom", $(this).attr("src"));
+            })
+
 			/**
 			 * 更新项目菜单
 			 */
@@ -273,7 +280,7 @@
 			
 			// 点击更新iframe页面
 			$(document).on("click",'#main-menu li',function(){
-				$("#htmlIframe").attr("src", $(this).find("a").find("span").data("url"));
+                $("#htmlIframe").attr("src", $(this).find("a").find("span").data("url"));
 			});
 			
 			$(document).ready(function() {
