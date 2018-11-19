@@ -1,174 +1,201 @@
 <html>
-	<head>
-		<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
-		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/css/bootstrap-select.min.css">
-		<link rel="stylesheet" href="assets/js/wysihtml5/src/bootstrap-wysihtml5.css">
-		<link rel="stylesheet" href="assets/css/xenon-core.css">
-		<link rel="stylesheet" href="assets/css/xenon-forms.css">
-		<link rel="stylesheet" href="assets/css/xenon-components.css">
-		<link rel="stylesheet" href="assets/css/xenon-skins.css">
-		<link rel="stylesheet" href="assets/css/custom.css">
-		<script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-		<title>接口添加</title>
-	</head>
+<head>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="assets/js/wysihtml5/src/bootstrap-wysihtml5.css">
+    <link rel="stylesheet" href="assets/css/xenon-core.css">
+    <link rel="stylesheet" href="assets/css/xenon-forms.css">
+    <link rel="stylesheet" href="assets/css/xenon-components.css">
+    <link rel="stylesheet" href="assets/css/xenon-skins.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <title>接口添加</title>
+</head>
 
-	<body style="padding: 15px;">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<div class="row">
-					<div class="col-sm-6">							
-						<h3><i class="linecons-pencil"></i>INSERT / UPDATE / DELETE</h3>
-					</div>
-					<div class="col-sm-3 col-xs-5">
-						<button type="button" class="btn btn-gray btn-single btn-icon btn-icon-standalone btn-icon-standalone-right btn-block">
-							<i class="linecons-fire"></i>
-							<span>Delete</span>
-						</button>
-					</div>
-					<div class="col-sm-3 col-xs-8">					
-						<button type="submit" class="btn btn-secondary btn-single btn-icon btn-icon-standalone btn-icon-standalone-right btn-block">
-							<i class="linecons-mail"></i>
-							<span>Submit</span>
-						</button>
-					</div>
-				</div>
-			</div>
-			<div class="panel-body">
-				<div class="form-group">
-					<select class="selectpicker">
-						<option>订单管理</option>
-						<option>用户管理</option>
-						<option>商品管理</option>
-					</select>
-					<select class="selectpicker">
-						<option>POST</option>
-						<option>GET</option>
-					</select>
-				</div>
-				<div class="form-group">
-					<input id="url" class="form-control" type="text"  placeholder="接口URL" />
-				</div>
-				<div class="form-group">
-					<input id="subject" class="form-control" type="text" placeholder="接口名称" />
-				</div>
-				<div class="form-group">
-					<textarea id="sample_wysiwyg" class="form-control wysihtml5" data-stylesheet-url="assets/js/wysihtml5/lib/css/wysiwyg-color.css" placeholder="接口描述" ></textarea>
-				</div>
-				<hr />
-				<div class="parameters">
-					<div class="row">
-						<div class="col-sm-3">							
-							<input type="text" class="form-control" placeholder="参数名称" />
-						</div>
-						<div class="col-sm-2">
-							<select class="form-control selectpicker">
-								<option>String</option>
-								<option>Integer</option>
-								<option>List</option>
-								<option>Json</option>
-							</select>
-						</div>
-						<div class="col-sm-6">
-							<input type="text" class="form-control" placeholder="参数注释" />
-						</div>
-						<div class="col-sm-1">
-							<button class="btn btn-icon btn-red delParameter">
-								<i class="fa-remove"></i>
-							</button>
-							<button class="btn btn-icon btn-success addParameter">
-								<i class="fa-check"></i>
-							</button>
-						</div>
-					</div>
-				</div>
-				<hr />
-				<div class="form-group">
-					<textarea id="field-5" class="form-control" rows="20" placeholder="接口JSON返回值" /></textarea>
-				</div>
-			</div>
-		</div>
-		
-		<!-- 参数模板 -->
-		<div class="hidden parameter">
-			<div class="row">
-				<div class="col-sm-3">
-					<input type="text" class="form-control" placeholder="参数名称" />
-				</div>
-				<div class="col-sm-2">
-					<select class="form-control selectpicker">
-						<option>String</option>
-						<option>Integer</option>
-						<option>List</option>
-						<option>Json</option>
-					</select>
-				</div>
-				<div class="col-sm-6">
-					<input type="text" class="form-control" placeholder="参数注释" />
-				</div>
-				<div class="col-sm-1">
-					<button class="btn btn-icon btn-red delParameter">
-						<i class="fa-remove"></i>
-					</button>
-					<button class="btn btn-icon btn-success addParameter">
-						<i class="fa-check"></i>
-					</button>
-				</div>
-			</div>
-		</div>
-		
-		<!-- Bottom Scripts -->
-		<script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-		<script src="https://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/js/bootstrap-select.min.js"></script>
-		<script src="https://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/js/i18n/defaults-zh_CN.min.js"></script>
-		<script src="assets/js/TweenMax.min.js"></script>
-		<script src="assets/js/resizeable.js"></script>
-		<script src="assets/js/xenon-toggles.js"></script>
-		<script src="assets/js/wysihtml5/lib/js/wysihtml5-0.3.0.js"></script>
-		<script src="assets/js/wysihtml5/src/bootstrap-wysihtml5.js"></script>
+<body style="padding: 15px;">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3><i class="linecons-pencil"></i>INSERT / UPDATE / DELETE</h3>
+            </div>
+            <div class="col-sm-3 col-xs-5">
+                <button type="button" class="btn btn-gray btn-single btn-icon btn-icon-standalone btn-icon-standalone-right btn-block">
+                    <i class="linecons-fire"></i>
+                    <span>Delete</span>
+                </button>
+            </div>
+            <div class="col-sm-3 col-xs-8">
+                <button id="add" type="submit"
+                        class="btn btn-secondary btn-single btn-icon btn-icon-standalone btn-icon-standalone-right btn-block">
+                    <i class="linecons-mail"></i>
+                    <span>Submit</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <input id="projectId" type="hidden">
+            <select id="groupId" class="selectpicker">
+                <option value="">订单管理</option>
+                <option value="">用户管理</option>
+                <option value="">商品管理</option>
+            </select>
+            <select id="type" class="selectpicker">
+                <option value="1">POST</option>
+                <option value="2">GET</option>
+            </select>
+            <select id="state" class="selectpicker">
+                <option value="1">待开发</option>
+                <option value="2">开发中</option>
+                <option value="3">可对接</option>
+                <option value="4">维护中</option>
+                <option value="5">已弃用</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input id="url" class="form-control" type="text" placeholder="接口URL"/>
+        </div>
+        <div class="form-group">
+            <input id="name" class="form-control" type="text" placeholder="接口名称"/>
+        </div>
+        <div class="form-group">
+            <textarea id="desc" class="form-control wysihtml5"
+                      data-stylesheet-url="assets/js/wysihtml5/lib/css/wysiwyg-color.css" placeholder="接口描述"></textarea>
+        </div>
+        <hr/>
+        <div id="parameters">
+            <div class="row">
+                <div class="col-sm-3">
+                    <input id="parameterName" type="text" class="form-control" placeholder="参数名称"/>
+                </div>
+                <div class="col-sm-2">
+                    <select id="parameterDateType" class="form-control selectpicker">
+                        <option>String</option>
+                        <option>Integer</option>
+                        <option>List</option>
+                        <option>Json</option>
+                    </select>
+                </div>
+                <div class="col-sm-5">
+                    <input id="parameterDesc" type="text" class="form-control" placeholder="参数注释"/>
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-icon btn-red delParameter">
+                        <i class="fa-remove"></i>
+                    </button>
+                    <button class="btn btn-icon btn-success addParameter">
+                        <i class="fa-check"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="form-group">
+            <textarea id="returnStructure" class="form-control" rows="20" placeholder="接口JSON返回值"/></textarea>
+        </div>
+    </div>
+</div>
 
-		<!-- JavaScripts initializations and stuff -->
-		<script src="assets/js/xenon-custom.js"></script>
-		<script src="assets/js/initialization.js"></script>
-		
-		<script type="text/javascript">
-			$(document).on("click",'.addParameter',function(){
-				$(".parameters").append($(".parameter").html());
-			});
+<!-- 参数模板 -->
+<div class="hidden parameter">
+    <div class="row">
+        <div class="col-sm-3">
+            <input id="parameterName" type="text" class="form-control" placeholder="参数名称"/>
+        </div>
+        <div class="col-sm-2">
+            <select id="parameterDateType" class="form-control selectpicker">
+                <option>String</option>
+                <option>Integer</option>
+                <option>List</option>
+                <option>Json</option>
+            </select>
+        </div>
+        <div class="col-sm-5">
+            <input id="parameterDesc" type="text" class="form-control" placeholder="参数注释"/>
+        </div>
+        <div class="col-sm-2">
+            <button class="btn btn-icon btn-red delParameter">
+                <i class="fa-remove"></i>
+            </button>
+            <button class="btn btn-icon btn-success addParameter">
+                <i class="fa-check"></i>
+            </button>
+        </div>
+    </div>
+</div>
 
-			function add() {
-				var name = $("#name").val();
-				var depict = $("#depict").val();
-				var isShow = $("#isShow").val();
-				if (name == null || name == "") {
-					alert("请输入项目名称");
-					return;
-				}
-				if (depict == null || depict == "") {
-					alert("请输入项目描述");
-					return;
-				}
-				if (startTime == null || startTime == "") {
-					alert("请输入开始时间");
-					return;
-				}
-				if (endTime == null || endTime == "") {
-					alert("请输入截至时间");
-					return;
-				}
-				$.ajax({
-					type: 'post',
-					url: url + "project/add",
-					data: {
-						name: name,
-						depict: depict,
-						isShow: isShow
-					},
-					success: function(data) {
-						alert(data.msg);
-					}
-				});
-			}
-		</script>
-	</body>
+<!-- Bottom Scripts -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/js/bootstrap-select.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/js/i18n/defaults-zh_CN.min.js"></script>
+<script src="assets/js/TweenMax.min.js"></script>
+<script src="assets/js/resizeable.js"></script>
+<script src="assets/js/xenon-toggles.js"></script>
+<script src="assets/js/wysihtml5/lib/js/wysihtml5-0.3.0.js"></script>
+<script src="assets/js/wysihtml5/src/bootstrap-wysihtml5.js"></script>
+
+<!-- JavaScripts initializations and stuff -->
+<script src="assets/js/xenon-custom.js"></script>
+<script src="assets/js/initialization.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#projectId").val(getUrlParam("projectId"));
+    });
+
+    // 点击添加参数
+    $(document).on("click", '.addParameter', function () {
+        $("#parameters").append($(".parameter").html());
+    });
+
+    // 添加接口
+    $("#add").click(function () {
+        alert("")
+        var parameters = $("#parameters").children().length;
+        alert(parameters.length);
+
+        return;
+        var projectId = $("#projectId").val();
+        var groupId = $("#groupId").val();
+        var type = $("#type").val();
+        var state = $("#state").val();
+        var url = $("#url").val();
+        var name = $("#name").val();
+        var desc = $("#desc").val();
+        var returnStructure = $("#returnStructure").val();
+        if (url == null || url == "") {
+            alert("请输入项目地址");
+            return;
+        }
+        if (name == null || name == "") {
+            alert("请输入项目名称");
+            return;
+        }
+        if (desc == null || desc == "") {
+            alert("请输入项目描述");
+            return;
+        }
+        $.ajax({
+            type: 'post',
+            url: url + "project/add",
+            data: {
+                projectId: projectId,
+                groupId: groupId,
+                type: type,
+                state: state,
+                url: url,
+                name: name,
+                desc: desc,
+                returnStructure: returnStructure
+            },
+            success: function (data) {
+                alert(data.msg);
+            }
+        });
+    });
+</script>
+</body>
 </html>
