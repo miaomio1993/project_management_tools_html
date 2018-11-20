@@ -15,12 +15,13 @@
 <body>
 <div class="row" style="padding: 20px 20px 0; margin: auto;">
     <div class="col-sm-12">
-        <a class="btn btn-white" href="interface_add.html">新增接口</a>
+        <a id="interfaceAdd" class="btn btn-white" href="#">新增接口</a>
     </div>
 </div>
 <div id="interfacesList" class="row" style="padding: 20px; margin: auto;">
     <div class="col-md-12">
         <div class="panel-group" id="accordion-test-2">
+            <input id="projectId" type="hidden">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
@@ -72,42 +73,15 @@
 <script src="assets/js/initialization.js"></script>
 
 <script type="text/javascript">
-    // 初始化控件
     $(function() {
-        getProjectList();
+        // 获取项目id
+        $("#projectId").val(getUrlParam("projectId"));
     });
 
-    function getProjectList() {
-        $.ajax({
-            type: 'get',
-            url: url + "project/getList",
-            async: false,
-            success: function(data) {
-                if (data.code == 0) {
-                    data = data.data;
-                    $("#projectList").html("");
-                    var str = "";
-                    for (var i = 0; i < data.length; i++) {
-                        str += "<div class='panel panel-default'>";
-                        str += "<div class='panel-heading'>";
-                        str += "<span>" + data[i].name + "</span>";
-                        str += "<a class='btn btn-white btn-xs pull-right' href='modular_add.html?id=" + data[i].id + "'>新增模块</a>";
-                        str += "<a class='btn btn-white btn-xs pull-right' style='margin-right: 10px;' href='project_up.html?id=" + data[i].id + "'>修改项目</a> ";
-                        str += "<table id='table" + data[i].id + "' class='table table-striped'>";
-                        str += "<thead><tr><th>ID</th><th>模块名称</th><th>模块描述</th><th>开始日期</th><th>结束日期</th><th>进度</th><th>是否可看</th><th>&nbsp;</th></tr></thead>";
-                        str += "<tbody>";
-                        str += "</tbody>";
-                        str += "</table>";
-                        str += "</div>";
-                        str += "</div>";
-                    }
-                    $("#projectList").append(str);
-                } else {
-                    alert(data.msg);
-                }
-            }
-        });
-    }
+    // 添加接口
+    $("#interfaceAdd").click(function(){
+        location.href='interface_add.html?projectId=' + $("#projectId").val();
+    });
 </script>
 </body>
 </html>

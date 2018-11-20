@@ -39,9 +39,6 @@
         <div class="form-group">
             <input id="projectId" type="hidden">
             <select id="groupId" class="selectpicker">
-                <option value="">订单管理</option>
-                <option value="">用户管理</option>
-                <option value="">商品管理</option>
             </select>
             <select id="type" class="selectpicker">
                 <option value="1">POST</option>
@@ -73,10 +70,10 @@
                 </div>
                 <div class="col-sm-2">
                     <select id="parameterDateType" class="form-control selectpicker">
-                        <option>String</option>
-                        <option>Integer</option>
-                        <option>List</option>
-                        <option>Json</option>
+                        <option value="String">String</option>
+                        <option value="Integer">Integer</option>
+                        <option value="List">List</option>
+                        <option value="Json">Json</option>
                     </select>
                 </div>
                 <div class="col-sm-5">
@@ -143,7 +140,30 @@
 
 <script type="text/javascript">
     $(function () {
+        // 获取项目id
         $("#projectId").val(getUrlParam("projectId"));
+
+        // 获取项目的分类目录
+        $.ajax({
+            type: 'post',
+            url: url + "template/getList",
+            data: {
+                projectId: $("#projectId").val()
+            },
+            success: function (data) {
+                if(data.code == 0){
+                    data = data.data;
+                    var str = "";
+                    for (let i = 0; i < data.length; i++) {
+                        str += "<option value='"+ data[i].id +"'>"+ data[i].name +"</option>";
+                    }
+                    $("#groupId").html(str);
+                    $('#groupId').selectpicker('refresh');
+                } else{
+                    alert(data.msg);
+                }
+            }
+        });
     });
 
     // 点击添加参数
@@ -153,20 +173,25 @@
 
     // 添加接口
     $("#add").click(function () {
-        alert("")
-        var parameters = $("#parameters").children().length;
-        alert(parameters.length);
-
-        return;
+        // 获取接口参数
+        var parametersList=[];
+        var parameter={};
+        var parameters = $("#parameters").children(".row").length;
+        for (let i = 0; i < parameters; i++) {
+            parameter.name = $("#parameters").find(".row").eq(i).find("#parameterName").val();
+            parameter.dateType = $("#parameters").find(".row").eq(i).find("#parameterDateType").val();
+            parameter.desc = $("#parameters").find(".row").eq(i).find("#parameterDesc").val();
+            parametersList[i] = parameter;
+        }
         var projectId = $("#projectId").val();
         var groupId = $("#groupId").val();
         var type = $("#type").val();
         var state = $("#state").val();
-        var url = $("#url").val();
+        var aUrl = $("#url").val();
         var name = $("#name").val();
         var desc = $("#desc").val();
         var returnStructure = $("#returnStructure").val();
-        if (url == null || url == "") {
+        if (aUrl == null || aUrl == "") {
             alert("请输入项目地址");
             return;
         }
@@ -180,15 +205,16 @@
         }
         $.ajax({
             type: 'post',
-            url: url + "project/add",
+            url: url + "interfaceInfo/add",
             data: {
                 projectId: projectId,
                 groupId: groupId,
                 type: type,
                 state: state,
-                url: url,
+                url: aUrl,
                 name: name,
                 desc: desc,
+                parameter: JSON.stringify(parametersList),
                 returnStructure: returnStructure
             },
             success: function (data) {
