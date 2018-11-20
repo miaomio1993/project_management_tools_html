@@ -34,7 +34,7 @@
 			function getProjectList() {
 				$.ajax({
 					type: 'get',
-					url: url + "project/getList",
+					url: url + "project/getProjectList",
 					async: false,
 					success: function(data) {
 						if (data.code == 0) {
@@ -50,14 +50,34 @@
 								str += "<table id='table" + data[i].id + "' class='table table-striped'>";
 								str += "<thead><tr><th>ID</th><th>模块名称</th><th>模块描述</th><th>开始日期</th><th>结束日期</th><th>进度</th><th>是否可看</th><th>&nbsp;</th></tr></thead>";
 								str += "<tbody>";
+                                for (var j = 0; j < data[i].templateListDtoList.length; j++) {
+                                    str += "<tr>";
+                                    str += "<td>" + data[i].templateListDtoList[j].id + "</td>";
+                                    str += "<td>" + data[i].templateListDtoList[j].name + "</td>";
+                                    str += "<td>" + data[i].templateListDtoList[j].depict + "</td>";
+                                    str += "<td>" + formatDate(data[i].templateListDtoList[j].startTime) + "</td>";
+                                    str += "<td>" + formatDate(data[i].templateListDtoList[j].endTime) + "</td>";
+                                    str += "<td class='middle-align'>";
+                                    str += "<div class='progress'>";
+                                    str += "<div class='progress-bar progress-bar-info' role='progressbar' aria-valuenow='20' aria-valuemin='0' aria-valuemax='100' style='width: 20%'>";
+                                    str += "<span class='sr-only'>20% Complete</span>";
+                                    str += "</div>";
+                                    str += "</div>";
+                                    str += "</td>";
+                                    if(data[i].templateDtoList[j].isShow == 1){
+                                        str += "<td>是</td>";
+                                    } else if(data[i].templateDtoList[j].isShow == 2){
+                                        str += "<td>否</td>";
+                                    }
+                                    str += "<td><a href='modular_up.html?id=" + data[i].templateDtoList[j].id + "'><i class='fa fa-pencil' title='编辑'></i></a></td>";
+                                    str += "</tr>";
+                                }
 								str += "</tbody>";
 								str += "</table>";
 								str += "</div>";
 								str += "</div>";
-								$("#projectList").append(str);
-								getTemplateList(data[i].id)
-								str = "";
 							}
+                            $("#projectList").append(str);
 						} else {
 							alert(data.msg);
 						}
@@ -65,45 +85,6 @@
 				});
 			}
 
-			function getTemplateList(projectId) {
-				$.ajax({
-					type: 'get',
-					url: url + "template/getList",
-					async: false,
-					data: {
-						projectId: projectId
-					},
-					success: function(data) {
-						if (data.code == 0) {
-							var str = "";
-							data = data.data;
-							for (var i = 0; i < data.length; i++) {
-								str += "<tr>";
-								str += "<td>" + data[i].id + "</td>";
-								str += "<td>" + data[i].name + "</td>";
-								str += "<td>" + data[i].depict + "</td>";
-								str += "<td>" + formatDate(data[i].startTime) + "</td>";
-								str += "<td>" + formatDate(data[i].endTime) + "</td>";
-								str += "<td class='middle-align'>";
-								str += "<div class='progress'>";
-								str += "<div class='progress-bar progress-bar-info' role='progressbar' aria-valuenow='20' aria-valuemin='0' aria-valuemax='100' style='width: 20%'>";
-								str += "<span class='sr-only'>20% Complete</span>";
-								str += "</div>";
-								str += "</div>";
-								str += "</td>";
-								if(data[i].isShow == 1){
-									str += "<td>是</td>";
-								} else if(data[i].isShow == 2){
-									str += "<td>否</td>";
-								}
-								str += "<td><a href='modular_up.html?id=" + data[i].id + "'><i class='fa fa-pencil' title='编辑'></i></a></td>";
-								str += "</tr>";
-								$("#table" + projectId).find("tbody").html(str);
-							}
-						}
-					}
-				});
-			};
 		</script>
 	</body>
 </html>

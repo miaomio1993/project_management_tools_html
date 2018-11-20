@@ -230,8 +230,8 @@
 			$(function(){
 			    // 获取目录列表
                 $.ajax({
-                    type: 'get',
-                    url: url + "project/getMenuList",
+                    type: 'post',
+                    url: url + "project/getProjectList",
                     async : false,
                     success: function(data) {
                         if(data.code == 0){
