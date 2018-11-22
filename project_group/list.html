@@ -2,7 +2,7 @@
 <head>
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link href="https://cdn.bootcss.com/bootstrap-select/1.12.4/css/bootstrap-select.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="../assets/css/xenon-core.css">
     <link rel="stylesheet" href="../assets/css/xenon-forms.css">
     <link rel="stylesheet" href="../assets/css/xenon-components.css">
@@ -14,10 +14,15 @@
 
 <body>
 <div class="row" style="padding: 20px; margin: auto;">
-    <div class="col-sm-12">
+    <div class="col-sm-2">
         <select id="projectId" class="selectpicker" data-live-search="true" data-size="8">
             <option>请选择项目</option>
         </select>
+    </div>
+    <div class="col-sm-10">
+        <div class='btn-group pull-right'>
+            <a type='button' class='btn btn-default btn-sm' onclick='insert()'>INSERT</a>
+        </div>
     </div>
 </div>
 
@@ -98,7 +103,6 @@
                         str += "    <td>" + data[i].interfaceNumber + "</td>";
                         str += "    <td style='padding: 8px;'>";
                         str += "        <div class='btn-group'>";
-                        str += "        <a type='button' class='btn btn-default btn-sm' href='#' onclick='insert(" + data[i].id + ")'>INSERT</a>";
                         str += "        <a type='button' class='btn btn-default btn-sm' href='#' onclick='update(" + data[i].id + ")'>UPDATE</a>";
                         str += "        <a type='button' class='btn btn-default btn-sm' href='#' onclick='deletes(" + data[i].id + ")'>DELETE</a>";
                         str += "        </div>";
@@ -113,14 +117,14 @@
         });
     }
 
-    function insert(id) {
+    function insert() {
         var name = prompt("新的分组名称", "");
         if (name) {
             $.ajax({
                 type: 'post',
                 url: url + "projectGroup/add",
                 data: {
-                    projectId: id,
+                    projectId: $('#projectId').val(),
                     name: name
                 },
                 success: function (data) {

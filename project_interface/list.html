@@ -9,26 +9,34 @@
     <link rel="stylesheet" href="../assets/css/xenon-skins.css">
     <link rel="stylesheet" href="../assets/css/custom.css">
     <script src="https://cdn.bootcss.com/jquery/1.12.3/jquery.min.js"></script>
-    <title>项目分组列表</title>
+    <title>项目接口列表</title>
 </head>
 
 <body>
 <div class="row" style="padding: 20px; margin: auto;">
-    <div class="col-sm-12">
+    <div class="col-sm-2">
         <select id="projectId" class="selectpicker" data-live-search="true" data-size="8">
-            <option>请选择项目</option>
         </select>
+    </div>
+    <div class="col-sm-2">
         <select id="projectGroupId" class="selectpicker" data-live-search="true" data-size="8">
-            <option>请选择项目分组</option>
+            <option>接口分组</option>
         </select>
+    </div>
+    <div class="col-sm-2">
         <select id="projectInterfaceStatsId" class="selectpicker" data-size="8">
-            <option value="0">请选择项目接口状态</option>
+            <option value="0">全部</option>
             <option value="1">待开发</option>
             <option value="2">开发中</option>
             <option value="3">可对接</option>
             <option value="4">维护中</option>
             <option value="5">已弃用</option>
         </select>
+    </div>
+    <div class="col-sm-6">
+        <div class='btn-group pull-right'>
+            <a id="add" type='button' class='btn btn-default btn-sm'>INSERT</a>
+        </div>
     </div>
 </div>
 
@@ -39,10 +47,13 @@
                 <table class="table table-model-1">
                     <thead>
                     <tr>
-                        <th style="width: 20%">ID</th>
-                        <th title="分组名称" style="width: 40%">Name</th>
-                        <th title="接口数量" style="width: 20%">Interface Number</th>
-                        <th title="相关操作" style="width: 20%">Operation</th>
+                        <th>ID</th>
+                        <th title="接口名称">Interface Name</th>
+                        <th title="接口描述">Interface Desc</th>
+                        <th title="接口状态">Interface State</th>
+                        <th title="请求地址">Request Url</th>
+                        <th title="请求类型">Request Type</th>
+                        <th title="相关操作">Operation</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -59,6 +70,25 @@
 
 <script type="text/javascript">
     $(function () {
+        getProjectList();
+        getProjectGroupList();
+        getProjectInterfaceList();
+    });
+
+    $('#projectId').on('changed.bs.select', function (e) {
+        getProjectGroupList();
+        getProjectInterfaceList();
+    });
+
+    $('#projectGroupId').on('changed.bs.select', function (e) {
+        getProjectInterfaceList();
+    });
+
+    $('#projectInterfaceStatsId').on('changed.bs.select', function (e) {
+        getProjectInterfaceList();
+    });
+
+    function getProjectList(){
         $.ajax({
             type: 'post',
             url: url + "project/getList",
@@ -78,24 +108,42 @@
                 }
             }
         });
-    });
+    }
 
-    // 当下拉框项目值变更时触发
-    $('#projectId').on('changed.bs.select', function (e) {
-        var projectId = $(this).val();
-        if (projectId == 0) {
-            return false;
-        }
-        getList();
-    });
-
-    function getList() {
+    function getProjectGroupList(){
         $.ajax({
             type: 'post',
             url: url + "projectGroup/getList",
             async: false,
             data: {
                 projectId: $('#projectId').val()
+            },
+            success: function (data) {
+                if (data.code == 0) {
+                    data = data.data;
+                    $("#projectGroupId").html("");
+                    var str = "<option value='0'>请选择分类</option>";
+                    for (var i = 0; i < data.length; i++) {
+                        str += "<option value='" + data[i].id + "'>" + data[i].name + "</option>"
+                    }
+                    $("#projectGroupId").html(str);
+                    $('#projectGroupId').selectpicker('refresh');
+                } else {
+                    alert(data.msg);
+                }
+            }
+        });
+    }
+
+    function getProjectInterfaceList() {
+        $.ajax({
+            type: 'post',
+            url: url + "projectInterface/getList",
+            async: false,
+            data: {
+                projectId: $('#projectId').val(),
+                projectGroupId: $('#projectGroupId').val(),
+                projectInterfaceStatsId: $('#projectInterfaceStatsId').val()
             },
             success: function (data) {
                 if (data.code == 0) {
@@ -106,12 +154,24 @@
                         str += "<tr>";
                         str += "    <td>" + data[i].id + "</td>";
                         str += "    <td>" + data[i].name + "</td>";
-                        str += "    <td>" + data[i].interfaceNumber + "</td>";
+                        str += "    <td>" + data[i].depict + "</td>";
+                        if(data[i].state = 1){
+                            str += "<td>待开发</td>";
+                        } else if (data[i].state = 2){
+                            str += "<td>开发中</td>";
+                        } else if (data[i].state = 3){
+                            str += "<td>已完成</td>";
+                        } else if (data[i].state = 4){
+                            str += "<td>维护中</td>";
+                        } else if (data[i].state = 5){
+                            str += "<td>已弃用</td>";
+                        }
+                        str += "    <td>" + data[i].url + "</td>";
+                        str += "    <td>" + data[i].type + "</td>";
                         str += "    <td style='padding: 8px;'>";
                         str += "        <div class='btn-group'>";
-                        str += "        <a type='button' class='btn btn-default btn-sm' href='#' onclick='insert(" + data[i].id + ")'>INSERT</a>";
-                        str += "        <a type='button' class='btn btn-default btn-sm' href='#' onclick='update(" + data[i].id + ")'>UPDATE</a>";
-                        str += "        <a type='button' class='btn btn-default btn-sm' href='#' onclick='deletes(" + data[i].id + ")'>DELETE</a>";
+                        str += "        <a type='button' class='btn btn-default btn-sm' href='up.html?projectInterfaceId='"+data[i].id+"'>UPDATE</a>";
+                        str += "        <a type='button' class='btn btn-default btn-sm' href='#' onclick='deletes("+data[i].id+")'>DELETE</a>";
                         str += "        </div>";
                         str += "    </td>";
                         str += "</tr>";
@@ -124,49 +184,27 @@
         });
     }
 
-    function insert(id) {
-        var name = prompt("新的分组名称", "");
-        if (name) {
-            $.ajax({
-                type: 'post',
-                url: url + "projectGroup/add",
-                data: {
-                    projectId: id,
-                    name: name
-                },
-                success: function (data) {
-                    alert(data.msg);
-                    getList();
-                }
-            });
+    $("#add").click(function (){
+        var projectId = $('#projectId').val();
+        var projectGroupId = $('#projectGroupId').val();
+        if(projectId == null || projectId == 0){
+            alert("请选择项目或分组");
+            return false;
         }
-    }
-
-    function update(id) {
-        var name = prompt("修正的分组名称", "");
-        if (name) {
-            $.ajax({
-                type: 'post',
-                url: url + "projectGroup/up",
-                data: {
-                    projectGroupId: id,
-                    name: name
-                },
-                success: function (data) {
-                    alert(data.msg);
-                    getList();
-                }
-            });
+        if(projectGroupId == null || projectGroupId == 0){
+            alert("请选择项目或分组");
+            return false;
         }
-    }
+        location.href='add.html?projectId='+projectId+"&projectGroupId="+projectGroupId;
+    });
 
     function deletes(id) {
         if (confirm("是否删除?")) {
             $.ajax({
                 type: 'post',
-                url: url + "projectGroup/del",
+                url: url + "projectInterface/del",
                 data: {
-                    projectGroupId: id
+                    projectInterfaceId: id
                 },
                 success: function (data) {
                     alert(data.msg);

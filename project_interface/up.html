@@ -1,0 +1,130 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="../assets/css/xenon-core.css">
+    <link rel="stylesheet" href="../assets/css/xenon-forms.css">
+    <link rel="stylesheet" href="../assets/css/xenon-components.css">
+    <link rel="stylesheet" href="../assets/css/xenon-skins.css">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <script src="https://cdn.bootcss.com/jquery/1.12.3/jquery.min.js"></script>
+    <title>修改接口</title>
+</head>
+
+<body style="padding: 15px;">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Update Interface</h3>
+    </div>
+    <div class="panel-body">
+        <div role="form" class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">模块名称</label>
+                <div class="col-sm-6">
+                    <input id="projectInterfaceId" type="hidden">
+                    <input id="name" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">模块描述</label>
+                <div class="col-sm-6">
+                    <input id="depict" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">开始日期</label>
+                <div class="col-sm-6">
+                    <input id="startTime" type="text" class="form-control" placeholder="yyyy-dd-mm">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">结束日期</label>
+                <div class="col-sm-6">
+                    <input id="endTime" type="text" class="form-control" placeholder="yyyy-dd-mm">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">是否可看</label>
+                <div class="col-sm-6">
+                    <input id="isShow" type="checkbox" checked="" class="iswitch iswitch-info"
+                           style="margin-bottom: 0; margin-top: 6px;">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">&nbsp;</label>
+                <div class="col-sm-6">
+                    <button onclick="up()" class="btn btn-secondary btn-single">保&nbsp;&nbsp;存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="../assets/js/initialization.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#projectInterfaceId").val(getUrlParam("projectInterfaceId"));
+
+        $.ajax({
+            type: 'post',
+            url: url + "projectInterface/getInfo",
+            data: {
+                projectInterfaceId: $("#projectInterfaceId").val()
+            },
+            success: function (data) {
+                if (data.code == 0) {
+                    data = data.data;
+                    $("#name").val(data.name);
+                    $("#depict").val(data.depict);
+                    $("#startTime").val(formatDate(data.startTime));
+                    $("#endTime").val(formatDate(data.endTime));
+                } else {
+                    alert(data.msg);
+                }
+            }
+        });
+    });
+
+    function up() {
+        var name = $("#name").val();
+        var depict = $("#depict").val();
+        var startTime = $("#startTime").val();
+        var endTime = $("#endTime").val();
+        if (name == null || name == "") {
+            alert("请输入项目模块名称");
+            return;
+        }
+        if (depict == null || depict == "") {
+            alert("请输入项目模块描述");
+            return;
+        }
+        if (startTime == null || startTime == "") {
+            alert("请输入开始时间");
+            return;
+        }
+        if (endTime == null || endTime == "") {
+            alert("请输入结束时间");
+            return;
+        }
+        $.ajax({
+            type: 'post',
+            url: url + "template/up",
+            data: {
+                id: $("#id").val(),
+                name: name,
+                depict: depict,
+                startTime: startTime,
+                endTime: endTime,
+                isShow: $("#isShow").val()
+            },
+            success: function (data) {
+                alert(data.msg);
+            }
+        });
+    }
+</script>
+</body>
+</html>

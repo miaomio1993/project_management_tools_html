@@ -10,21 +10,15 @@
     <link rel="stylesheet" href="../assets/css/xenon-skins.css">
     <link rel="stylesheet" href="../assets/css/custom.css">
     <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-    <title>接口添加</title>
+    <title>添加接口</title>
 </head>
 
 <body style="padding: 15px;">
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-9">
                 <h3><i class="linecons-pencil"></i>INSERT / UPDATE / DELETE</h3>
-            </div>
-            <div class="col-sm-3 col-xs-5">
-                <button type="button" class="btn btn-gray btn-single btn-icon btn-icon-standalone btn-icon-standalone-right btn-block">
-                    <i class="linecons-fire"></i>
-                    <span>Delete</span>
-                </button>
             </div>
             <div class="col-sm-3 col-xs-8">
                 <button id="add" type="submit"
@@ -38,8 +32,7 @@
     <div class="panel-body">
         <div class="form-group">
             <input id="projectId" type="hidden">
-            <select id="groupId" class="selectpicker">
-            </select>
+            <input id="projectGroupId" type="hidden">
             <select id="type" class="selectpicker">
                 <option value="1">POST</option>
                 <option value="2">GET</option>
@@ -140,30 +133,9 @@
 
 <script type="text/javascript">
     $(function () {
-        // 获取项目id
         $("#projectId").val(getUrlParam("projectId"));
-
-        // 获取项目的分类目录
-        $.ajax({
-            type: 'post',
-            url: url + "template/getList",
-            data: {
-                projectId: $("#projectId").val()
-            },
-            success: function (data) {
-                if(data.code == 0){
-                    data = data.data;
-                    var str = "";
-                    for (let i = 0; i < data.length; i++) {
-                        str += "<option value='"+ data[i].id +"'>"+ data[i].name +"</option>";
-                    }
-                    $("#groupId").html(str);
-                    $('#groupId').selectpicker('refresh');
-                } else{
-                    alert(data.msg);
-                }
-            }
-        });
+        // 获取项目分组id
+        $("#projectGroupId").val(getUrlParam("projectGroupId"));
     });
 
     // 点击添加参数
@@ -183,8 +155,7 @@
             parameter.desc = $("#parameters").find(".row").eq(i).find("#parameterDesc").val();
             parametersList[i] = parameter;
         }
-        var projectId = $("#projectId").val();
-        var groupId = $("#groupId").val();
+        var projectGroupId = $("#projectGroupId").val();
         var type = $("#type").val();
         var state = $("#state").val();
         var aUrl = $("#url").val();
