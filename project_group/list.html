@@ -1,0 +1,170 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href="https://cdn.bootcss.com/bootstrap-select/1.12.4/css/bootstrap-select.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/xenon-core.css">
+    <link rel="stylesheet" href="../assets/css/xenon-forms.css">
+    <link rel="stylesheet" href="../assets/css/xenon-components.css">
+    <link rel="stylesheet" href="../assets/css/xenon-skins.css">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <script src="https://cdn.bootcss.com/jquery/1.12.3/jquery.min.js"></script>
+    <title>项目分组列表</title>
+</head>
+
+<body>
+<div class="row" style="padding: 20px; margin: auto;">
+    <div class="col-sm-12">
+        <select id="projectId" class="selectpicker" data-live-search="true" data-size="8">
+            <option>请选择项目</option>
+        </select>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-model-1">
+                    <thead>
+                    <tr>
+                        <th style="width: 20%">ID</th>
+                        <th title="分组名称" style="width: 40%">Name</th>
+                        <th title="接口数量" style="width: 20%">Interface Number</th>
+                        <th title="相关操作" style="width: 20%">Operation</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+<script src="../assets/js/initialization.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $.ajax({
+            type: 'post',
+            url: url + "project/getList",
+            async: false,
+            success: function (data) {
+                if (data.code == 0) {
+                    data = data.data;
+                    $("#projectId").html("");
+                    var str = "<option value='0'>请选择项目</option>";
+                    for (var i = 0; i < data.length; i++) {
+                        str += "<option value='" + data[i].id + "'>" + data[i].name + "</option>"
+                    }
+                    $("#projectId").html(str);
+                    $('#projectId').selectpicker('refresh');
+                } else {
+                    alert(data.msg);
+                }
+            }
+        });
+    });
+
+    // 当下拉框项目值变更时触发
+    $('#projectId').on('changed.bs.select', function (e) {
+        var projectId = $(this).val();
+        if (projectId == 0) {
+            return false;
+        }
+        getList();
+    });
+
+    function getList() {
+        $.ajax({
+            type: 'post',
+            url: url + "projectGroup/getList",
+            async: false,
+            data: {
+                projectId: $('#projectId').val()
+            },
+            success: function (data) {
+                if (data.code == 0) {
+                    $(".table tbody").html("");
+                    data = data.data;
+                    var str = "";
+                    for (let i = 0; i < data.length; i++) {
+                        str += "<tr>";
+                        str += "    <td>" + data[i].id + "</td>";
+                        str += "    <td>" + data[i].name + "</td>";
+                        str += "    <td>" + data[i].interfaceNumber + "</td>";
+                        str += "    <td style='padding: 8px;'>";
+                        str += "        <div class='btn-group'>";
+                        str += "        <a type='button' class='btn btn-default btn-sm' href='#' onclick='insert(" + data[i].id + ")'>INSERT</a>";
+                        str += "        <a type='button' class='btn btn-default btn-sm' href='#' onclick='update(" + data[i].id + ")'>UPDATE</a>";
+                        str += "        <a type='button' class='btn btn-default btn-sm' href='#' onclick='deletes(" + data[i].id + ")'>DELETE</a>";
+                        str += "        </div>";
+                        str += "    </td>";
+                        str += "</tr>";
+                    }
+                    $(".table tbody").html(str);
+                } else {
+                    alert(data.msg);
+                }
+            }
+        });
+    }
+
+    function insert(id) {
+        var name = prompt("新的分组名称", "");
+        if (name) {
+            $.ajax({
+                type: 'post',
+                url: url + "projectGroup/add",
+                data: {
+                    projectId: id,
+                    name: name
+                },
+                success: function (data) {
+                    alert(data.msg);
+                    getList();
+                }
+            });
+        }
+    }
+
+    function update(id) {
+        var name = prompt("修正的分组名称", "");
+        if (name) {
+            $.ajax({
+                type: 'post',
+                url: url + "projectGroup/up",
+                data: {
+                    projectGroupId: id,
+                    name: name
+                },
+                success: function (data) {
+                    alert(data.msg);
+                    getList();
+                }
+            });
+        }
+    }
+
+    function deletes(id) {
+        if (confirm("是否删除?")) {
+            $.ajax({
+                type: 'post',
+                url: url + "projectGroup/del",
+                data: {
+                    projectGroupId: id
+                },
+                success: function (data) {
+                    alert(data.msg);
+                    getList();
+                }
+            });
+        }
+    }
+
+</script>
+</body>
+</html>

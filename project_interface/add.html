@@ -3,12 +3,12 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="assets/js/wysihtml5/src/bootstrap-wysihtml5.css">
-    <link rel="stylesheet" href="assets/css/xenon-core.css">
-    <link rel="stylesheet" href="assets/css/xenon-forms.css">
-    <link rel="stylesheet" href="assets/css/xenon-components.css">
-    <link rel="stylesheet" href="assets/css/xenon-skins.css">
-    <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/js/wysihtml5/src/bootstrap-wysihtml5.css">
+    <link rel="stylesheet" href="../assets/css/xenon-core.css">
+    <link rel="stylesheet" href="../assets/css/xenon-forms.css">
+    <link rel="stylesheet" href="../assets/css/xenon-components.css">
+    <link rel="stylesheet" href="../assets/css/xenon-skins.css">
+    <link rel="stylesheet" href="../assets/css/custom.css">
     <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
     <title>接口添加</title>
 </head>
@@ -128,15 +128,15 @@
 <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/js/bootstrap-select.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/js/i18n/defaults-zh_CN.min.js"></script>
-<script src="assets/js/TweenMax.min.js"></script>
-<script src="assets/js/resizeable.js"></script>
-<script src="assets/js/xenon-toggles.js"></script>
-<script src="assets/js/wysihtml5/lib/js/wysihtml5-0.3.0.js"></script>
-<script src="assets/js/wysihtml5/src/bootstrap-wysihtml5.js"></script>
+<script src="../assets/js/TweenMax.min.js"></script>
+<script src="../assets/js/resizeable.js"></script>
+<script src="../assets/js/xenon-toggles.js"></script>
+<script src="../assets/js/wysihtml5/lib/js/wysihtml5-0.3.0.js"></script>
+<script src="../assets/js/wysihtml5/src/bootstrap-wysihtml5.js"></script>
 
 <!-- JavaScripts initializations and stuff -->
-<script src="assets/js/xenon-custom.js"></script>
-<script src="assets/js/initialization.js"></script>
+<script src="../assets/js/xenon-custom.js"></script>
+<script src="../assets/js/initialization.js"></script>
 
 <script type="text/javascript">
     $(function () {
@@ -205,7 +205,7 @@
         }
         $.ajax({
             type: 'post',
-            url: url + "interfaceInfo/add",
+            url: url + "interface/add",
             data: {
                 projectId: projectId,
                 groupId: groupId,

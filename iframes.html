@@ -1,299 +1,311 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="description" content="Xenon Boostrap Admin Panel" />
-		
-		<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
-		<link rel="stylesheet" href="assets/css/xenon-core.css">
-		<link rel="stylesheet" href="assets/css/xenon-forms.css">
-		<link rel="stylesheet" href="assets/css/xenon-components.css">
-		<link rel="stylesheet" href="assets/css/xenon-skins.css">
-		<link rel="stylesheet" href="assets/css/custom.css">
-		
-		<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
-		<script src="assets/js/initialization.js"></script>
-		
-		<title>页面容器</title>
-	</head>
-	<body class="page-body">
-		<!-- 设置模块 -->
-		<div class="settings-pane">
-			<a href="#" data-toggle="settings-pane" data-animate="true">&times;</a>
-			<div class="settings-pane-inner">
-				<div class="row">
-					<div class="col-md-4">
-						<div class="user-info">
-							<div class="user-image">
-								<a href="extra-profile.html">
-									<img src="assets/images/user-2.png" class="img-responsive img-circle" />
-								</a>
-							</div>
-							<div class="user-details">
-								<h3>
-									<a href="extra-profile.html">John Smith</a>
-									<!-- Available statuses: is-online, is-idle, is-busy and is-offline -->
-									<span class="user-status is-online"></span>
-								</h3>
-								<p class="user-title">Web Developer</p>
-								<div class="user-links">
-									<a href="extra-profile.html" class="btn btn-primary">Edit Profile</a>
-									<a href="extra-profile.html" class="btn btn-success">Upgrade</a>
-								</div>
-							</div>
-						</div>
-					</div>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Xenon Boostrap Admin Panel"/>
 
-					<div class="col-md-8 link-blocks-env">
-						<div class="links-block left-sep">
-							<h4><span>Notifications</span></h4>
-							<ul class="list-unstyled">
-								<li>
-									<input type="checkbox" class="cbr cbr-primary" checked="checked" id="sp-chk1" />
-									<label for="sp-chk1">Messages</label>
-								</li>
-								<li>
-									<input type="checkbox" class="cbr cbr-primary" checked="checked" id="sp-chk2" />
-									<label for="sp-chk2">Events</label>
-								</li>
-								<li>
-									<input type="checkbox" class="cbr cbr-primary" checked="checked" id="sp-chk3" />
-									<label for="sp-chk3">Updates</label>
-								</li>
-								<li>
-									<input type="checkbox" class="cbr cbr-primary" checked="checked" id="sp-chk4" />
-									<label for="sp-chk4">Server Uptime</label>
-								</li>
-							</ul>
-						</div>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/xenon-core.css">
+    <link rel="stylesheet" href="assets/css/xenon-forms.css">
+    <link rel="stylesheet" href="assets/css/xenon-components.css">
+    <link rel="stylesheet" href="assets/css/xenon-skins.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
 
-						<div class="links-block left-sep">
-							<h4><a href="#"><span>Help Desk</span></a></h4>
-							<ul class="list-unstyled">
-								<li><a href="#"><i class="fa-angle-right"></i>Terms of Service</a></li>
-								<li><a href="#"><i class="fa-angle-right"></i>Terms of Service</a></li>
-								<li><a href="#"><i class="fa-angle-right"></i>Terms of Service</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script src="assets/js/initialization.js"></script>
 
-		<div class="page-container">
-			<!-- 左侧 - 菜单模块 -->
-			<div class="sidebar-menu toggle-others fixed">
-				<div class="sidebar-menu-inner">
-					<header class="logo-env">
-						<!-- logo -->
-						<div class="logo">
-							<a href="dashboard-1.html" class="logo-expanded">
-								<img src="assets/images/logo@2x.png" width="80" alt="" />
-							</a>
-							<a href="dashboard-1.html" class="logo-collapsed">
-								<img src="assets/images/logo-collapsed@2x.png" width="40" alt="" />
-							</a>
-						</div>
-						<div class="mobile-menu-toggle visible-xs">
-							<a href="#" data-toggle="user-info-menu">
-								<i class="fa fa-bell-o"></i>
-								<span class="badge badge-success">7</span>
-							</a>
-							<a href="#" data-toggle="mobile-menu">
-								<i class="fa fa-bars"></i>
-							</a>
-						</div>
-						<div class="settings-icon">
-							<a href="#" data-toggle="settings-pane" data-animate="true">
-								<i class="fa fa-gear"></i>
-							</a>
-						</div>
-					</header>
+    <title>页面容器</title>
+</head>
+<body class="page-body">
+<!-- 设置模块 -->
+<div class="settings-pane">
+    <a href="#" data-toggle="settings-pane" data-animate="true">&times;</a>
+    <div class="settings-pane-inner">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="user-info">
+                    <div class="user-image">
+                        <a href="extra-profile.html">
+                            <img src="assets/images/user-2.png" class="img-responsive img-circle"/>
+                        </a>
+                    </div>
+                    <div class="user-details">
+                        <h3>
+                            <a href="extra-profile.html">John Smith</a>
+                            <!-- Available statuses: is-online, is-idle, is-busy and is-offline -->
+                            <span class="user-status is-online"></span>
+                        </h3>
+                        <p class="user-title">Web Developer</p>
+                        <div class="user-links">
+                            <a href="extra-profile.html" class="btn btn-primary">Edit Profile</a>
+                            <a href="extra-profile.html" class="btn btn-success">Upgrade</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-					<ul id="main-menu" class="main-menu">
-						<li>
-							<a href="#">
-								<i class="fa fa-home"></i>
-								<span class="title" data-url="home.html">Home Page</span>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<i class="fa fa-user-o"></i>
-								<span class="title" data-url="user.html">用户管理</span>
-							</a>
-						</li>
-						
-						
-						<li>
-							<a href="#">
-								<i class="fa fa-folder-o"></i>
-								<span class="title" data-url="project.html" >项目管理</span>
-							</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<!-- 右侧 - 容器 -->
-			<div class="main-content">
-				<!-- 头部模块 -->
-				<nav class="navbar user-info-navbar" role="navigation" style="margin: 0;border-bottom: 1px #dddddd solid;">
-					<ul class="user-info-menu left-links list-inline list-unstyled">
-						<!-- 控制菜单栏按钮 -->
-						<li class="hidden-sm hidden-xs">
-							<a href="#" data-toggle="sidebar">
-								<i class="fa-bars"></i>
-							</a>
-						</li>
-						<!-- 通知 -->
-						<li class="dropdown hover-line">
-							<a href="#" data-toggle="dropdown">
-								<i class="fa-bell-o"></i>
-								<span class="badge badge-purple">7</span>
-							</a>
-							<ul class="dropdown-menu notifications">
-								<li class="top">
-									<p class="small">
-										<a href="#" class="pull-right">Mark all Read</a>
-										You have <strong>3</strong> new notifications.
-									</p>
-								</li>
-								<li>
-									<ul class="dropdown-menu-list list-unstyled ps-scrollbar">
-										<li class="active notification-success">
-											<a href="#">
-												<i class="fa-user"></i>
-												<span class="line"><strong>New user registered</strong></span>
-												<span class="line small time">30 seconds ago</span>
-											</a>
-										</li>
-										<li class="active notification-secondary">
-											<a href="#">
-												<i class="fa-lock"></i>
-												<span class="line"><strong>Privacy settings have been changed</strong></span>
-												<span class="line small time">3 hours ago</span>
-											</a>
-										</li>
-										<li class="notification-primary">
-											<a href="#">
-												<i class="fa-thumbs-up"></i>
-												<span class="line"><strong>Someone special liked this</strong></span>
-												<span class="line small time">2 minutes ago</span>
-											</a>
-										</li>
-										<li class="notification-danger">
-											<a href="#">
-												<i class="fa-calendar"></i>
-												<span class="line">John cancelled the event</span>
-												<span class="line small time">9 hours ago</span>
-											</a>
-										</li>
-										<li class="notification-info">
-											<a href="#">
-												<i class="fa-database"></i>
-												<span class="line">The server is status is stable</span>
-												<span class="line small time">yesterday at 10:30am</span>
-											</a>
-										</li>
-										<li class="notification-warning">
-											<a href="#">
-												<i class="fa-envelope-o"></i>
-												<span class="line">New comments waiting approval</span>
-												<span class="line small time">last week</span>
-											</a>
-										</li>
-									</ul>
-								</li>
-								<li class="external">
-									<a href="#">
-										<span>View all notifications</span>
-										<i class="fa-link-ext"></i>
-									</a>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</nav>
-				<iframe id="htmlIframe" src="home.html" height="100%" width="100%" style="border: none; "></iframe>
-			</div>
-		</div>
+            <div class="col-md-8 link-blocks-env">
+                <div class="links-block left-sep">
+                    <h4><span>Notifications</span></h4>
+                    <ul class="list-unstyled">
+                        <li>
+                            <input type="checkbox" class="cbr cbr-primary" checked="checked" id="sp-chk1"/>
+                            <label for="sp-chk1">Messages</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" class="cbr cbr-primary" checked="checked" id="sp-chk2"/>
+                            <label for="sp-chk2">Events</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" class="cbr cbr-primary" checked="checked" id="sp-chk3"/>
+                            <label for="sp-chk3">Updates</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" class="cbr cbr-primary" checked="checked" id="sp-chk4"/>
+                            <label for="sp-chk4">Server Uptime</label>
+                        </li>
+                    </ul>
+                </div>
 
-		<div class="page-loading-overlay">
-			<div class="loader-2"></div>
-		</div>
+                <div class="links-block left-sep">
+                    <h4><a href="#"><span>Help Desk</span></a></h4>
+                    <ul class="list-unstyled">
+                        <li><a href="#"><i class="fa-angle-right"></i>Terms of Service</a></li>
+                        <li><a href="#"><i class="fa-angle-right"></i>Terms of Service</a></li>
+                        <li><a href="#"><i class="fa-angle-right"></i>Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-		<script>
+<div class="page-container">
+    <!-- 左侧 - 菜单模块 -->
+    <div class="sidebar-menu toggle-others fixed">
+        <div class="sidebar-menu-inner">
+            <header class="logo-env">
+                <!-- logo -->
+                <div class="logo">
+                    <a href="dashboard-1.html" class="logo-expanded">
+                        <img src="assets/images/logo@2x.png" width="80" alt=""/>
+                    </a>
+                    <a href="dashboard-1.html" class="logo-collapsed">
+                        <img src="assets/images/logo-collapsed@2x.png" width="40" alt=""/>
+                    </a>
+                </div>
+                <div class="mobile-menu-toggle visible-xs">
+                    <a href="#" data-toggle="user-info-menu">
+                        <i class="fa fa-bell-o"></i>
+                        <span class="badge badge-success">7</span>
+                    </a>
+                    <a href="#" data-toggle="mobile-menu">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                </div>
+                <div class="settings-icon">
+                    <a href="#" data-toggle="settings-pane" data-animate="true">
+                        <i class="fa fa-gear"></i>
+                    </a>
+                </div>
+            </header>
 
-			$(function(){
-			    // 获取目录列表
-                $.ajax({
-                    type: 'post',
-                    url: url + "project/getProjectList",
-                    async : false,
-                    success: function(data) {
-                        if(data.code == 0){
-                            data = data.data;
-                            var str = "";
-                            for (var i = 0; i < data.length; i++) {
+            <ul id="main-menu" class="main-menu">
+                <li>
+                    <a href="#">
+                        <i class="fa fa-home"></i>
+                        <span class="title" data-url="home/home.html" title="首页">Home Page</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-user-o"></i>
+                        <span class="title" data-url="user/user.html" title="用户管理">User</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-folder-o"></i>
+                        <span class="title" title="项目管理">Project</span>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <span class="title" data-url="project/list.html" title="项目列表">Project List</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="title" data-url="project_group/list.html"
+                                      title="项目分组列表">Project Group List</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="title" data-url="project_interface/list.html" title="项目接口列表">Project Interface List</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 右侧 - 容器 -->
+    <div class="main-content">
+        <!-- 头部模块 -->
+        <nav class="navbar user-info-navbar" role="navigation" style="margin: 0;border-bottom: 1px #dddddd solid;">
+            <ul class="user-info-menu left-links list-inline list-unstyled">
+                <!-- 控制菜单栏按钮 -->
+                <li class="hidden-sm hidden-xs">
+                    <a href="#" data-toggle="sidebar">
+                        <i class="fa-bars"></i>
+                    </a>
+                </li>
+                <!-- 通知 -->
+                <li class="dropdown hover-line">
+                    <a href="#" data-toggle="dropdown">
+                        <i class="fa-bell-o"></i>
+                        <span class="badge badge-purple">7</span>
+                    </a>
+                    <ul class="dropdown-menu notifications">
+                        <li class="top">
+                            <p class="small">
+                                <a href="#" class="pull-right">Mark all Read</a>
+                                You have <strong>3</strong> new notifications.
+                            </p>
+                        </li>
+                        <li>
+                            <ul class="dropdown-menu-list list-unstyled ps-scrollbar">
+                                <li class="active notification-success">
+                                    <a href="#">
+                                        <i class="fa-user"></i>
+                                        <span class="line"><strong>New user registered</strong></span>
+                                        <span class="line small time">30 seconds ago</span>
+                                    </a>
+                                </li>
+                                <li class="active notification-secondary">
+                                    <a href="#">
+                                        <i class="fa-lock"></i>
+                                        <span class="line"><strong>Privacy settings have been changed</strong></span>
+                                        <span class="line small time">3 hours ago</span>
+                                    </a>
+                                </li>
+                                <li class="notification-primary">
+                                    <a href="#">
+                                        <i class="fa-thumbs-up"></i>
+                                        <span class="line"><strong>Someone special liked this</strong></span>
+                                        <span class="line small time">2 minutes ago</span>
+                                    </a>
+                                </li>
+                                <li class="notification-danger">
+                                    <a href="#">
+                                        <i class="fa-calendar"></i>
+                                        <span class="line">John cancelled the event</span>
+                                        <span class="line small time">9 hours ago</span>
+                                    </a>
+                                </li>
+                                <li class="notification-info">
+                                    <a href="#">
+                                        <i class="fa-database"></i>
+                                        <span class="line">The server is status is stable</span>
+                                        <span class="line small time">yesterday at 10:30am</span>
+                                    </a>
+                                </li>
+                                <li class="notification-warning">
+                                    <a href="#">
+                                        <i class="fa-envelope-o"></i>
+                                        <span class="line">New comments waiting approval</span>
+                                        <span class="line small time">last week</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="external">
+                            <a href="#">
+                                <span>View all notifications</span>
+                                <i class="fa-link-ext"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <iframe id="htmlIframe" src="home/home.html" height="100%" width="100%" style="border: none; "></iframe>
+    </div>
+</div>
+
+<div class="page-loading-overlay">
+    <div class="loader-2"></div>
+</div>
+
+<script>
+    $(function () {
+        // 获取目录列表
+        $.ajax({
+            type: 'post',
+            url: url + "project/getMenuList",
+            async: false,
+            success: function (data) {
+                if (data.code == 0) {
+                    data = data.data;
+                    var str = "";
+                    for (var i = 0; i < data.length; i++) {
+                        str += "<li>";
+                        str += "	<a href='#'>";
+                        str += "		<i class='fa fa-home'></i>";
+                        str += "		<span class='title'>" + data[i].name + "</span>";
+                        str += "	</a>";
+                        if (data[i].templateList.length > 0) {
+                            str += "<ul>";
+                            var templateLists = data[i].templateList;
+                            for (var j = 0; j < templateLists.length; j++) {
                                 str += "<li>";
-                                str += "	<a href='#'>";
-                                str += "		<i class='fa fa-home'></i>";
-                                str += "		<span class='title'>" + data[i].name + "</span>";
-                                str += "	</a>";
-                                if(data[i].templateDtoList.length > 0){
-                                    str += "<ul>";
-                                    str += "<li>";
-                                    str += "<a href='#'><span class='title' data-url='interface.html?projectId=" + data[i].id + "'>全部接口</span></a>";
-                                    str += "</li>";
-                                    var templateList = data[i].templateDtoList;
-                                    for (var j = 0; j < templateList.length; j++) {
-                                        str += "<li>";
-                                        str += "<a href='#'><span class='title'>" + templateList[j].name + "</span></a>";
-                                        str += "</li>";
-                                    }
-                                    str += "</ul>";
-                                }
+                                str += "    <a href='#'><span class='title'>" + templateLists[j].name + "</span></a>";
                                 str += "</li>";
                             }
-                            $("#main-menu li:first-of-type").after(str);
-                        }else{
-                            alert(data.msg);
+                            str += "</ul>";
                         }
+                        str += "</li>";
                     }
-                });
+                    $("#main-menu").prepend(str);
+                } else {
+                    alert(data.msg);
+                }
+            }
+        });
 
-				// 每次刷新获取上次点击地址
-                $("#htmlIframe").attr("src", localStorage.getItem("varIfom"));
-			});
+        // 每次刷新获取上次点击地址
+        $("#htmlIframe").attr("src", localStorage.getItem("varIfom"));
+    });
 
-			// 点击更新iframe页面
-			$(document).on("click",'#main-menu li',function(){
-                $("#htmlIframe").attr("src", $(this).find("a").find("span").data("url"));
-			});
-            // 监视iframe的src变化时将其保存至本地
-            $('#htmlIframe').load(function() {
-                localStorage.setItem("varIfom", $(this).attr("src"));
-            })
+    // 点击更新iframe页面
+    $(document).on("click", '#main-menu li', function () {
+        $("#htmlIframe").attr("src", $(this).find("a").find("span").data("url"));
+    });
+    // 监视iframe的src变化时将其保存至本地
+    $('#htmlIframe').load(function () {
+        localStorage.setItem("varIfom", $(this).attr("src"));
+    })
 
-            // 初始化iframe高度
-			$(document).ready(function() {
-				var windowHeight = $(window).height();
-				$("#htmlIframe").css("height", windowHeight - $(".navbar").height() - 8);
-			});
-			
-		</script>
-		
-		<!-- Bottom Scripts -->
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
-		<script src="assets/js/TweenLite.min.js"></script>
-		<script src="assets/js/TweenMax.min.js"></script>
-		<script src="assets/js/resizeable.js"></script>
-		<script src="assets/js/xenon-toggles.js"></script>
+    // 初始化iframe高度
+    $(document).ready(function () {
+        var windowHeight = $(window).height();
+        $("#htmlIframe").css("height", windowHeight - $(".navbar").height() - 8);
+    });
 
-		<!-- JavaScripts initializations and stuff -->
-		<script src="assets/js/xenon-custom.js"></script>
-	</body>
+</script>
+
+<!-- Bottom Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+<script src="assets/js/TweenLite.min.js"></script>
+<script src="assets/js/TweenMax.min.js"></script>
+<script src="assets/js/resizeable.js"></script>
+<script src="assets/js/xenon-toggles.js"></script>
+
+<!-- JavaScripts initializations and stuff -->
+<script src="assets/js/xenon-custom.js"></script>
+</body>
 </html>
