@@ -136,6 +136,9 @@
     }
 
     function getProjectInterfaceList() {
+        if($('#projectId').val() == 0){
+            return false;
+        }
         $.ajax({
             type: 'post',
             url: url + "projectInterface/getList",
@@ -170,7 +173,7 @@
                         str += "    <td>" + data[i].type + "</td>";
                         str += "    <td style='padding: 8px;'>";
                         str += "        <div class='btn-group'>";
-                        str += "        <a type='button' class='btn btn-default btn-sm' href='up.html?projectInterfaceId='"+data[i].id+"'>UPDATE</a>";
+                        str += "        <a type='button' class='btn btn-default btn-sm' href='up.html?projectId="+data[i].projectId+"&projectGroupId="+data[i].groupId+"&projectInterfaceId="+data[i].id+"'>UPDATE</a>";
                         str += "        <a type='button' class='btn btn-default btn-sm' href='#' onclick='deletes("+data[i].id+")'>DELETE</a>";
                         str += "        </div>";
                         str += "    </td>";

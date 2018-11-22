@@ -3,84 +3,146 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="../assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css">
     <link rel="stylesheet" href="../assets/css/xenon-core.css">
     <link rel="stylesheet" href="../assets/css/xenon-forms.css">
     <link rel="stylesheet" href="../assets/css/xenon-components.css">
     <link rel="stylesheet" href="../assets/css/xenon-skins.css">
     <link rel="stylesheet" href="../assets/css/custom.css">
-    <script src="https://cdn.bootcss.com/jquery/1.12.3/jquery.min.js"></script>
-    <title>修改接口</title>
+    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <title>添加接口</title>
 </head>
 
 <body style="padding: 15px;">
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">Update Interface</h3>
+        <div class="row">
+            <div class="col-sm-9">
+                <h3><i class="linecons-pencil"></i>INSERT / UPDATE / DELETE</h3>
+            </div>
+            <div class="col-sm-3 col-xs-8">
+                <button id="add" type="submit"
+                        class="btn btn-secondary btn-single btn-icon btn-icon-standalone btn-icon-standalone-right btn-block">
+                    <i class="linecons-mail"></i>
+                    <span>Submit</span>
+                </button>
+            </div>
+        </div>
     </div>
     <div class="panel-body">
-        <div role="form" class="form-horizontal">
-            <div class="form-group">
-                <label class="col-sm-2 control-label">模块名称</label>
-                <div class="col-sm-6">
-                    <input id="projectInterfaceId" type="hidden">
-                    <input id="name" type="text" class="form-control">
-                </div>
+        <div class="form-group">
+            <input id="projectInterfaceId" type="hidden">
+            <div class="col-sm-2">
+                <select id="projectId" class="selectpicker" data-live-search="true" data-size="8">
+                </select>
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">模块描述</label>
-                <div class="col-sm-6">
-                    <input id="depict" type="text" class="form-control">
-                </div>
+            <div class="col-sm-2">
+                <select id="projectGroupId" class="selectpicker" data-live-search="true" data-size="8">
+                </select>
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">开始日期</label>
-                <div class="col-sm-6">
-                    <input id="startTime" type="text" class="form-control" placeholder="yyyy-dd-mm">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">结束日期</label>
-                <div class="col-sm-6">
-                    <input id="endTime" type="text" class="form-control" placeholder="yyyy-dd-mm">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">是否可看</label>
-                <div class="col-sm-6">
-                    <input id="isShow" type="checkbox" checked="" class="iswitch iswitch-info"
-                           style="margin-bottom: 0; margin-top: 6px;">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">&nbsp;</label>
-                <div class="col-sm-6">
-                    <button onclick="up()" class="btn btn-secondary btn-single">保&nbsp;&nbsp;存</button>
-                </div>
-            </div>
+            <select id="type" class="selectpicker">
+                <option value="1">POST</option>
+                <option value="2">GET</option>
+            </select>
+            <select id="state" class="selectpicker">
+                <option value="1">待开发</option>
+                <option value="2">开发中</option>
+                <option value="3">可对接</option>
+                <option value="4">维护中</option>
+                <option value="5">已弃用</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input id="url" class="form-control" type="text" placeholder="接口URL"/>
+        </div>
+        <div class="form-group">
+            <input id="name" class="form-control" type="text" placeholder="接口名称"/>
+        </div>
+        <div class="form-group">
+            <textarea id="desc" class="form-control wysihtml5"
+                      data-stylesheet-url="assets/js/wysihtml5/lib/css/wysiwyg-color.css" placeholder="接口描述"></textarea>
+        </div>
+        <hr/>
+        <div id="parameters">
+        </div>
+        <hr/>
+        <div class="form-group">
+            <textarea id="returnStructure" class="form-control" rows="20" placeholder="接口JSON返回值"/></textarea>
         </div>
     </div>
 </div>
 
+<!-- 参数模板 -->
+<div class="hidden parameter">
+    <div class="row">
+        <div class="col-sm-3">
+            <input id="parameterName" type="text" class="form-control" placeholder="参数名称"/>
+        </div>
+        <div class="col-sm-2">
+            <select id="parameterDateType" class="form-control selectpicker">
+                <option>String</option>
+                <option>Integer</option>
+                <option>List</option>
+                <option>Json</option>
+            </select>
+        </div>
+        <div class="col-sm-5">
+            <input id="parameterDesc" type="text" class="form-control" placeholder="参数注释"/>
+        </div>
+        <div class="col-sm-2">
+            <button class="btn btn-icon btn-red delParameter">
+                <i class="fa-remove"></i>
+            </button>
+            <button class="btn btn-icon btn-success addParameter">
+                <i class="fa-check"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Bottom Scripts -->
 <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+<script src="https://cdn.bootcss.com/wysihtml5/0.3.0/wysihtml5.min.js"></script>
+<script src="../assets/js/TweenMax.min.js"></script>
+<script src="../assets/js/resizeable.js"></script>
+<script src="../assets/js/xenon-toggles.js"></script>
+<script src="../assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+
+<!-- JavaScripts initializations and stuff -->
+<script src="../assets/js/xenon-custom.js"></script>
 <script src="../assets/js/initialization.js"></script>
 
 <script type="text/javascript">
     $(function () {
-        $("#projectInterfaceId").val(getUrlParam("projectInterfaceId"));
+        getProjectList();
+        $("#projectId").val(getUrlParam("projectId"));
+        $('#projectId').selectpicker('refresh');
+        getProjectGroupList();
+        $("#projectGroupId").val(getUrlParam("projectGroupId"));
+        $('#projectGroupId').selectpicker('refresh');
 
+        $("#projectInterfaceId").val(getUrlParam("projectInterfaceId"));
         $.ajax({
             type: 'post',
             url: url + "projectInterface/getInfo",
+            async: false,
             data: {
                 projectInterfaceId: $("#projectInterfaceId").val()
             },
             success: function (data) {
                 if (data.code == 0) {
                     data = data.data;
+                    $("#projectInterfaceId").val(data.id);
+                    $("#type").val(data.type);
+                    $("#state").val(data.state);
+                    $("#url").val(data.url);
                     $("#name").val(data.name);
-                    $("#depict").val(data.depict);
-                    $("#startTime").val(formatDate(data.startTime));
-                    $("#endTime").val(formatDate(data.endTime));
+                    $("#desc").val(data.depict);
+                    for (let i = 0; i < data.parameter.length; i++) {
+                        $("#parameters").html();
+                    }
+                    $("#parameters").val();
                 } else {
                     alert(data.msg);
                 }
@@ -88,40 +150,106 @@
         });
     });
 
-    function up() {
+    // 点击添加参数
+    $(document).on("click", '.addParameter', function () {
+        $("#parameters").append($(".parameter").html());
+
+    });
+
+    // 添加接口
+    $("#add").click(function () {
+        // 获取接口参数
+        var parametersList=[];
+        var parameter={};
+        var parameters = $("#parameters").children(".row").length;
+        for (let i = 0; i < parameters; i++) {
+            parameter.name = $("#parameters").find(".row").eq(i).find("#parameterName").val();
+            parameter.dateType = $("#parameters").find(".row").eq(i).find("#parameterDateType").val();
+            parameter.desc = $("#parameters").find(".row").eq(i).find("#parameterDesc").val();
+            parametersList[i] = parameter;
+        }
+        var projectGroupId = $("#projectGroupId").val();
+        var type = $("#type").val();
+        var state = $("#state").val();
+        var aUrl = $("#url").val();
         var name = $("#name").val();
-        var depict = $("#depict").val();
-        var startTime = $("#startTime").val();
-        var endTime = $("#endTime").val();
+        var desc = $("#desc").val();
+        var returnStructure = $("#returnStructure").val();
+        if (aUrl == null || aUrl == "") {
+            alert("请输入项目地址");
+            return;
+        }
         if (name == null || name == "") {
-            alert("请输入项目模块名称");
+            alert("请输入项目名称");
             return;
         }
-        if (depict == null || depict == "") {
-            alert("请输入项目模块描述");
-            return;
-        }
-        if (startTime == null || startTime == "") {
-            alert("请输入开始时间");
-            return;
-        }
-        if (endTime == null || endTime == "") {
-            alert("请输入结束时间");
+        if (desc == null || desc == "") {
+            alert("请输入项目描述");
             return;
         }
         $.ajax({
             type: 'post',
-            url: url + "template/up",
+            url: url + "interface/add",
             data: {
-                id: $("#id").val(),
+                projectId: projectId,
+                groupId: groupId,
+                type: type,
+                state: state,
+                url: aUrl,
                 name: name,
-                depict: depict,
-                startTime: startTime,
-                endTime: endTime,
-                isShow: $("#isShow").val()
+                desc: desc,
+                parameter: JSON.stringify(parametersList),
+                returnStructure: returnStructure
             },
             success: function (data) {
                 alert(data.msg);
+            }
+        });
+    });
+
+    function getProjectList(){
+        $.ajax({
+            type: 'post',
+            url: url + "project/getList",
+            async: false,
+            success: function (data) {
+                if (data.code == 0) {
+                    data = data.data;
+                    $("#projectId").html("");
+                    var str = "<option value='0'>请选择项目</option>";
+                    for (var i = 0; i < data.length; i++) {
+                        str += "<option value='" + data[i].id + "'>" + data[i].name + "</option>"
+                    }
+                    $("#projectId").html(str);
+                    $('#projectId').selectpicker('refresh');
+                } else {
+                    alert(data.msg);
+                }
+            }
+        });
+    }
+
+    function getProjectGroupList(){
+        $.ajax({
+            type: 'post',
+            url: url + "projectGroup/getList",
+            async: false,
+            data: {
+                projectId: $('#projectId').val()
+            },
+            success: function (data) {
+                if (data.code == 0) {
+                    data = data.data;
+                    $("#projectGroupId").html("");
+                    var str = "<option value='0'>请选择分类</option>";
+                    for (var i = 0; i < data.length; i++) {
+                        str += "<option value='" + data[i].id + "'>" + data[i].name + "</option>"
+                    }
+                    $("#projectGroupId").html(str);
+                    $('#projectGroupId').selectpicker('refresh');
+                } else {
+                    alert(data.msg);
+                }
             }
         });
     }
