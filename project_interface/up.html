@@ -21,7 +21,7 @@
                 <h3><i class="linecons-pencil"></i>INSERT / UPDATE / DELETE</h3>
             </div>
             <div class="col-sm-3 col-xs-8">
-                <button id="add" type="submit"
+                <button id="up" type="submit"
                         class="btn btn-secondary btn-single btn-icon btn-icon-standalone btn-icon-standalone-right btn-block">
                     <i class="linecons-mail"></i>
                     <span>Submit</span>
@@ -80,10 +80,10 @@
         </div>
         <div class="col-sm-2">
             <select id="parameterDateType" class="form-control selectpicker">
-                <option>String</option>
-                <option>Integer</option>
-                <option>List</option>
-                <option>Json</option>
+                <option value="String">String</option>
+                <option value="Integer">Integer</option>
+                <option value="List">List</option>
+                <option value="Json">Json</option>
             </select>
         </div>
         <div class="col-sm-5">
@@ -114,7 +114,7 @@
 <script src="../assets/js/initialization.js"></script>
 
 <script type="text/javascript">
-    $(function () {
+    window.onload = function () {
         getProjectList();
         $("#projectId").val(getUrlParam("projectId"));
         $('#projectId').selectpicker('refresh');
@@ -139,16 +139,20 @@
                     $("#url").val(data.url);
                     $("#name").val(data.name);
                     $("#desc").val(data.depict);
-                    for (let i = 0; i < data.parameter.length; i++) {
-                        $("#parameters").html();
+                    var parameters = JSON.parse(data.parameter);
+                    for (let i = 0; i < parameters.length; i++) {
+                        $("#parameters").append($(".parameter").html());
+                        $("#parameters .row:first-of-type").find("#parameterName").val(parameters[i].name);
+                        $("#parameters .row:first-of-type").find("#parameterDateType").val(parameters[i].dateType);
+                        $("#parameters .row:first-of-type").find("#parameterDesc").val(parameters[i].desc);
                     }
-                    $("#parameters").val();
+                    $("#returnStructure").val(data.returnStructure);
                 } else {
                     alert(data.msg);
                 }
             }
         });
-    });
+    };
 
     // 点击添加参数
     $(document).on("click", '.addParameter', function () {
@@ -156,11 +160,11 @@
 
     });
 
-    // 添加接口
-    $("#add").click(function () {
+    // 修改接口
+    $("#up").click(function () {
         // 获取接口参数
-        var parametersList=[];
-        var parameter={};
+        var parametersList = [];
+        var parameter = {};
         var parameters = $("#parameters").children(".row").length;
         for (let i = 0; i < parameters; i++) {
             parameter.name = $("#parameters").find(".row").eq(i).find("#parameterName").val();
@@ -168,6 +172,8 @@
             parameter.desc = $("#parameters").find(".row").eq(i).find("#parameterDesc").val();
             parametersList[i] = parameter;
         }
+        var projectInterfaceId = $("#projectInterfaceId").val();
+        var projectId = $("#projectId").val();
         var projectGroupId = $("#projectGroupId").val();
         var type = $("#type").val();
         var state = $("#state").val();
@@ -189,10 +195,11 @@
         }
         $.ajax({
             type: 'post',
-            url: url + "interface/add",
+            url: url + "projectInterface/up",
             data: {
+                projectInterfaceId:projectInterfaceId ,
                 projectId: projectId,
-                groupId: groupId,
+                projectGroupId: projectGroupId,
                 type: type,
                 state: state,
                 url: aUrl,
@@ -207,7 +214,7 @@
         });
     });
 
-    function getProjectList(){
+    function getProjectList() {
         $.ajax({
             type: 'post',
             url: url + "project/getList",
@@ -229,7 +236,7 @@
         });
     }
 
-    function getProjectGroupList(){
+    function getProjectGroupList() {
         $.ajax({
             type: 'post',
             url: url + "projectGroup/getList",

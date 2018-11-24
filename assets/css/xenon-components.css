@@ -1075,7 +1075,7 @@ lesshat-selector {
 @-webkit-keyframes glowAnimation{ 0%{ box-shadow: rgba(104, 184, 40, 0.2) 0 0 0 1px; } 100%{ box-shadow: rgba(104, 184, 40, 0.8) 0 0 3px 1px; }}
 @-moz-keyframes glowAnimation{ 0%{ box-shadow: rgba(104, 184, 40, 0.2) 0 0 0 1px; } 100%{ box-shadow: rgba(104, 184, 40, 0.8) 0 0 3px 1px; }}
 @-o-keyframes glowAnimation{ 0%{ box-shadow: rgba(104, 184, 40, 0.2) 0 0 0 1px; } 100%{ box-shadow: rgba(104, 184, 40, 0.8) 0 0 3px 1px; }}
-@keyframes glowAnimation{ 0%{ box-shadow: rgba(104, 184, 40, 0.2) 0 0 0 1px; } 100%{ box-shadow: rgba(104, 184, 40, 0.8) 0 0 3px 1px; };
+@keyframes glowAnimation{ 0%{ box-shadow: rgba(104, 184, 40, 0.2) 0 0 0 1px; } 100%{ box-shadow: rgba(104, 184, 40, 0.8) 0 0 3px 1px; }
 }
 .modal-gallery-image {
   margin: -31px;
@@ -3455,7 +3455,7 @@ button.toast-close-button {
 .xe-widget.xe-counter-block .xe-upper,
 .xe-widget.xe-progress-counter .xe-upper {
   background: #fff;
-  padding: 28px;
+  padding: 28px 10px;
   line-height: 1;
   display: table;
   width: 100%;

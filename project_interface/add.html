@@ -45,20 +45,20 @@
             </select>
         </div>
         <div class="form-group">
-            <input id="url" class="form-control" type="text" placeholder="接口URL"/>
+            <input id="url" class="form-control" type="text" placeholder="请求URL" title="请求URL"/>
         </div>
         <div class="form-group">
-            <input id="name" class="form-control" type="text" placeholder="接口名称"/>
+            <input id="name" class="form-control" type="text" placeholder="接口名称" title="接口名称"/>
         </div>
         <div class="form-group">
             <textarea id="desc" class="form-control wysihtml5"
-                      data-stylesheet-url="assets/js/wysihtml5/lib/css/wysiwyg-color.css" placeholder="接口描述"></textarea>
+                      data-stylesheet-url="assets/js/wysihtml5/lib/css/wysiwyg-color.css" placeholder="接口描述" title="接口描述"></textarea>
         </div>
         <hr/>
         <div id="parameters">
             <div class="row">
                 <div class="col-sm-3">
-                    <input id="parameterName" type="text" class="form-control" placeholder="参数名称"/>
+                    <input id="parameterName" type="text" class="form-control" placeholder="参数名称" title="参数名称"/>
                 </div>
                 <div class="col-sm-2">
                     <select id="parameterDateType" class="form-control selectpicker">
@@ -69,7 +69,7 @@
                     </select>
                 </div>
                 <div class="col-sm-5">
-                    <input id="parameterDesc" type="text" class="form-control" placeholder="参数注释"/>
+                    <input id="parameterDesc" type="text" class="form-control" placeholder="参数注释" title="参数注释"/>
                 </div>
                 <div class="col-sm-2">
                     <button class="btn btn-icon btn-red delParameter">
@@ -83,7 +83,7 @@
         </div>
         <hr/>
         <div class="form-group">
-            <textarea id="returnStructure" class="form-control" rows="20" placeholder="接口JSON返回值"/></textarea>
+            <textarea id="returnStructure" class="form-control" rows="20" placeholder="接口JSON返回值" title="接口JSON返回值"/></textarea>
         </div>
     </div>
 </div>
@@ -92,7 +92,7 @@
 <div class="hidden parameter">
     <div class="row">
         <div class="col-sm-3">
-            <input id="parameterName" type="text" class="form-control" placeholder="参数名称"/>
+            <input id="parameterName" type="text" class="form-control" placeholder="参数名称" title="参数名称"/>
         </div>
         <div class="col-sm-2">
             <select id="parameterDateType" class="form-control selectpicker">
@@ -103,7 +103,7 @@
             </select>
         </div>
         <div class="col-sm-5">
-            <input id="parameterDesc" type="text" class="form-control" placeholder="参数注释"/>
+            <input id="parameterDesc" type="text" class="form-control" placeholder="参数注释" title="参数注释"/>
         </div>
         <div class="col-sm-2">
             <button class="btn btn-icon btn-red delParameter">
@@ -153,6 +153,7 @@
             parameter.desc = $("#parameters").find(".row").eq(i).find("#parameterDesc").val();
             parametersList[i] = parameter;
         }
+        var projectId = $("#projectId").val();
         var projectGroupId = $("#projectGroupId").val();
         var type = $("#type").val();
         var state = $("#state").val();
@@ -174,10 +175,10 @@
         }
         $.ajax({
             type: 'post',
-            url: url + "interface/add",
+            url: url + "projectInterface/add",
             data: {
                 projectId: projectId,
-                groupId: groupId,
+                groupId: projectGroupId,
                 type: type,
                 state: state,
                 url: aUrl,
