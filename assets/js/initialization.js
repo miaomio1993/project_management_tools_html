@@ -20,8 +20,6 @@ function getUrlParam(name) {
   return null; //返回参数值
 }
 
-
-
 /**
  * 格式化时间戳
  */
@@ -33,12 +31,11 @@ function formatDate(time){
 	return ymdhms;
 }
 
-
 // 多选框选中值代码
 $("[type='checkbox']").click(function() {
     if (this.checked){
-        $(this).val(true);
+        $(this).val("必填");
     } else{
-        $(this).val(false);
+        $(this).val("非必填");
     }
 });

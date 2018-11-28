@@ -2,7 +2,6 @@
 <head>
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="../assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css">
     <link rel="stylesheet" href="../assets/css/xenon-core.css">
     <link rel="stylesheet" href="../assets/css/xenon-forms.css">
@@ -32,25 +31,31 @@
     <div class="panel-body">
         <div class="form-group">
             <input id="projectInterfaceId" type="hidden">
-            <div class="col-sm-2">
-                <select id="projectId" class="selectpicker" data-live-search="true" data-size="8">
-                </select>
+            <div class="row">
+                <div class="col-sm-2">
+                    <select id="projectId" class="form-control">
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <select id="projectGroupId" class="form-control">
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <select id="type" class="form-control">
+                        <option value="Post">Post</option>
+                        <option value="Get">Get</option>
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <select id="state" class="form-control">
+                        <option value="待开发">待开发</option>
+                        <option value="开发中">开发中</option>
+                        <option value="可对接">可对接</option>
+                        <option value="维护中">维护中</option>
+                        <option value="已弃用">已弃用</option>
+                    </select>
+                </div>
             </div>
-            <div class="col-sm-2">
-                <select id="projectGroupId" class="selectpicker" data-live-search="true" data-size="8">
-                </select>
-            </div>
-            <select id="type" class="selectpicker">
-                <option value="1">POST</option>
-                <option value="2">GET</option>
-            </select>
-            <select id="state" class="selectpicker">
-                <option value="1">待开发</option>
-                <option value="2">开发中</option>
-                <option value="3">可对接</option>
-                <option value="4">维护中</option>
-                <option value="5">已弃用</option>
-            </select>
         </div>
         <div class="form-group">
             <input id="url" class="form-control" type="text" placeholder="接口URL"/>
@@ -59,8 +64,7 @@
             <input id="name" class="form-control" type="text" placeholder="接口名称"/>
         </div>
         <div class="form-group">
-            <textarea id="desc" class="form-control wysihtml5"
-                      data-stylesheet-url="assets/js/wysihtml5/lib/css/wysiwyg-color.css" placeholder="接口描述"></textarea>
+            <textarea id="desc" class="form-control wysihtml5" data-stylesheet-url="assets/js/wysihtml5/lib/css/wysiwyg-color.css" placeholder="接口描述"></textarea>
         </div>
         <hr/>
         <div id="parameters">
@@ -102,7 +106,6 @@
 
 <!-- Bottom Scripts -->
 <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="https://cdn.bootcss.com/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 <script src="https://cdn.bootcss.com/wysihtml5/0.3.0/wysihtml5.min.js"></script>
 <script src="../assets/js/TweenMax.min.js"></script>
 <script src="../assets/js/resizeable.js"></script>
@@ -197,7 +200,7 @@
             type: 'post',
             url: url + "projectInterface/up",
             data: {
-                projectInterfaceId:projectInterfaceId ,
+                projectInterfaceId: projectInterfaceId,
                 projectId: projectId,
                 projectGroupId: projectGroupId,
                 type: type,

@@ -25,12 +25,12 @@
     </div>
     <div class="col-sm-2">
         <select id="projectInterfaceStatsId" class="selectpicker" data-size="8">
-            <option value="0">全部</option>
-            <option value="1">待开发</option>
-            <option value="2">开发中</option>
-            <option value="3">可对接</option>
-            <option value="4">维护中</option>
-            <option value="5">已弃用</option>
+            <option value="全部">全部</option>
+            <option value="待开发">待开发</option>
+            <option value="开发中">开发中</option>
+            <option value="可对接">可对接</option>
+            <option value="维护中">维护中</option>
+            <option value="已弃用">已弃用</option>
         </select>
     </div>
     <div class="col-sm-6">
@@ -158,17 +158,7 @@
                         str += "    <td>" + data[i].id + "</td>";
                         str += "    <td>" + data[i].name + "</td>";
                         str += "    <td>" + data[i].depict + "</td>";
-                        if(data[i].state = 1){
-                            str += "<td>待开发</td>";
-                        } else if (data[i].state = 2){
-                            str += "<td>开发中</td>";
-                        } else if (data[i].state = 3){
-                            str += "<td>已完成</td>";
-                        } else if (data[i].state = 4){
-                            str += "<td>维护中</td>";
-                        } else if (data[i].state = 5){
-                            str += "<td>已弃用</td>";
-                        }
+                        str += "    <td>" + data[i].state + "</td>";
                         str += "    <td>" + data[i].url + "</td>";
                         str += "    <td>" + data[i].type + "</td>";
                         str += "    <td style='padding: 8px;'>";
@@ -217,7 +207,6 @@
             });
         }
     }
-
 </script>
 </body>
 </html>
