@@ -2,7 +2,6 @@
 <head>
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="../assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css">
     <link rel="stylesheet" href="../assets/css/xenon-core.css">
     <link rel="stylesheet" href="../assets/css/xenon-forms.css">
@@ -13,36 +12,44 @@
     <title>添加接口</title>
 </head>
 
-<body style="padding: 15px;">
+<body style="padding: 15px 10%;">
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="row">
             <div class="col-sm-9">
-                <h3><i class="linecons-pencil"></i>INSERT</h3>
+                <h3><i class="linecons-pencil"></i>添加接口</h3>
             </div>
             <div class="col-sm-3 col-xs-8">
                 <button id="add" type="submit" class="btn btn-secondary btn-single btn-icon btn-icon-standalone btn-icon-standalone-right btn-block">
                     <i class="linecons-mail"></i>
-                    <span>Submit</span>
+                    <span>提交</span>
                 </button>
             </div>
         </div>
     </div>
     <div class="panel-body">
+
+        <input id="projectId" type="hidden">
+        <input id="projectGroupId" type="hidden">
+
         <div class="form-group">
-            <input id="projectId" type="hidden">
-            <input id="projectGroupId" type="hidden">
-            <select id="type" class="selectpicker">
-                <option value="1">POST</option>
-                <option value="2">GET</option>
-            </select>
-            <select id="state" class="selectpicker">
-                <option value="1">待开发</option>
-                <option value="2">开发中</option>
-                <option value="3">可对接</option>
-                <option value="4">维护中</option>
-                <option value="5">已弃用</option>
-            </select>
+            <div class="row">
+                <div class="col-sm-3">
+                    <select id="type" class="form-control">
+                        <option value="1">POST</option>
+                        <option value="2">GET</option>
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <select id="state" class="form-control">
+                        <option value="1">待开发</option>
+                        <option value="2">开发中</option>
+                        <option value="3">可对接</option>
+                        <option value="4">维护中</option>
+                        <option value="5">已弃用</option>
+                    </select>
+                </div>
+            </div>
         </div>
         <div class="form-group">
             <input id="url" class="form-control" type="text" placeholder="请求URL" title="请求URL"/>
@@ -57,16 +64,19 @@
         <hr/>
         <div id="parameters">
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <input id="parameterName" type="text" class="form-control" placeholder="参数名称" title="参数名称"/>
                 </div>
                 <div class="col-sm-2">
-                    <select id="parameterDateType" class="form-control selectpicker">
+                    <select id="parameterDateType" class="form-control">
                         <option value="String">String</option>
                         <option value="Integer">Integer</option>
                         <option value="List">List</option>
                         <option value="Json">Json</option>
                     </select>
+                </div>
+                <div class="col-sm-1" style="padding-top: 3px;">
+                    <input id="isNotEmpty" type="checkbox" checked value="true" class="iswitch-lg iswitch-info" title="不可为空">
                 </div>
                 <div class="col-sm-5">
                     <input id="parameterDesc" type="text" class="form-control" placeholder="参数注释" title="参数注释"/>
@@ -91,16 +101,19 @@
 <!-- 参数模板 -->
 <div class="hidden parameter">
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <input id="parameterName" type="text" class="form-control" placeholder="参数名称" title="参数名称"/>
         </div>
         <div class="col-sm-2">
-            <select id="parameterDateType" class="form-control selectpicker">
-                <option>String</option>
-                <option>Integer</option>
-                <option>List</option>
-                <option>Json</option>
+            <select id="parameterDateType" class="form-control">
+                <option value="String">String</option>
+                <option value="Integer">Integer</option>
+                <option value="List">List</option>
+                <option value="Json">Json</option>
             </select>
+        </div>
+        <div class="col-sm-1" style="padding-top: 3px;">
+            <input id="isNotEmpty" type="checkbox" checked value="true" class="iswitch-lg iswitch-info" title="不可为空">
         </div>
         <div class="col-sm-5">
             <input id="parameterDesc" type="text" class="form-control" placeholder="参数注释" title="参数注释"/>
@@ -118,7 +131,6 @@
 
 <!-- Bottom Scripts -->
 <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="https://cdn.bootcss.com/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 <script src="https://cdn.bootcss.com/wysihtml5/0.3.0/wysihtml5.min.js"></script>
 <script src="../assets/js/TweenMax.min.js"></script>
 <script src="../assets/js/resizeable.js"></script>
@@ -131,12 +143,13 @@
 
 <script type="text/javascript">
     $(function () {
+        // 获取项目id
         $("#projectId").val(getUrlParam("projectId"));
         // 获取项目分组id
         $("#projectGroupId").val(getUrlParam("projectGroupId"));
     });
 
-    // 点击添加参数
+    // 点击添加参数输入组件
     $(document).on("click", '.addParameter', function () {
         $("#parameters").append($(".parameter").html());
     });
@@ -145,11 +158,13 @@
     $("#add").click(function () {
         // 获取接口参数
         var parametersList=[];
-        var parameter={};
-        var parameters = $("#parameters").children(".row").length;
-        for (let i = 0; i < parameters; i++) {
+        var parameter;
+        var parametersCount = $("#parameters").children(".row").length;
+        for (let i = 0; i < parametersCount; i++) {
+            parameter={};
             parameter.name = $("#parameters").find(".row").eq(i).find("#parameterName").val();
             parameter.dateType = $("#parameters").find(".row").eq(i).find("#parameterDateType").val();
+            parameter.isNotEmpty = $("#parameters").find(".row").eq(i).find("#isNotEmpty").val();
             parameter.desc = $("#parameters").find(".row").eq(i).find("#parameterDesc").val();
             parametersList[i] = parameter;
         }

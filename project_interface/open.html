@@ -1,0 +1,156 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="../assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css">
+    <link rel="stylesheet" href="../assets/css/xenon-core.css">
+    <link rel="stylesheet" href="../assets/css/xenon-forms.css">
+    <link rel="stylesheet" href="../assets/css/xenon-components.css">
+    <link rel="stylesheet" href="../assets/css/xenon-skins.css">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <title>查看接口</title>
+</head>
+
+<body style="padding: 15px 10%;">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-sm-9">
+                <h3><i class="linecons-pencil"></i>查看接口</h3>
+            </div>
+            <div class="col-sm-3 col-xs-8">
+                <button id="up" type="submit"
+                        class="btn btn-secondary btn-single btn-icon btn-icon-standalone btn-icon-standalone-right btn-block">
+                    <i class="linecons-mail"></i>
+                    <span>请求</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <input id="projectInterfaceId" type="hidden">
+            <div class="col-sm-2">
+                <label id="projectName"></label>
+            </div>
+            <div class="col-sm-2">
+                <label id="projectGroupName"></label>
+            </div>
+            <div class="col-sm-2">
+                <label id="type"></label>
+            </div>
+            <div class="col-sm-6">
+                <label id="state"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label id="url"></label>
+        </div>
+        <div class="form-group">
+            <label id="name"></label>
+        </div>
+        <div class="form-group">
+            <textarea id="desc" class="form-control" rows="6" placeholder="接口描述" readonly></textarea>
+        </div>
+        <hr/>
+        <div id="parameters">
+        </div>
+        <hr/>
+        <div class="form-group">
+            <textarea id="returnStructure" class="form-control" contenteditable="true" placeholder="接口JSON返回值"
+                      readonly/></textarea>
+        </div>
+    </div>
+</div>
+
+<!-- 参数模板 -->
+<div class="hidden parameter">
+    <div class="row">
+        <div class="col-sm-3">
+            <label id="parameterName" ></label>
+        </div>
+        <div class="col-sm-2">
+            <label id="parameterDateType" ></label>
+        </div>
+        <div class="col-sm-7">
+            <label id="parameterDesc" ></label>
+        </div>
+    </div>
+</div>
+
+<!-- Bottom Scripts -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+<script src="https://cdn.bootcss.com/wysihtml5/0.3.0/wysihtml5.min.js"></script>
+<script src="../assets/js/TweenMax.min.js"></script>
+<script src="../assets/js/resizeable.js"></script>
+<script src="../assets/js/xenon-toggles.js"></script>
+<script src="../assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+
+<!-- JavaScripts initializations and stuff -->
+<script src="../assets/js/xenon-custom.js"></script>
+<script src="../assets/js/initialization.js"></script>
+
+<script type="text/javascript">
+    window.onload = function () {
+        $("#projectInterfaceId").val(getUrlParam("projectInterfaceId"));
+        $.ajax({
+            type: 'post',
+            url: url + "projectInterface/getInfo",
+            async: false,
+            data: {
+                projectInterfaceId: $("#projectInterfaceId").val()
+            },
+            success: function (data) {
+                if (data.code == 0) {
+                    data = data.data;
+                    $("#projectName").html(data.projectName);
+                    $("#projectGroupName").html(data.projectGroupName);
+                    if (data.type == 1) {
+                        $("#type").html("post");
+                    } else if (data.type == 2) {
+                        $("#type").html("get");
+                    }
+                    if (data.state == 1) {
+                        $("#state").html("待开发");
+                    } else if (data.state == 2) {
+                        $("#state").html("开发中");
+                    } else if (data.state == 3) {
+                        $("#state").html("可对接");
+                    } else if (data.state == 4) {
+                        $("#state").html("维护中");
+                    } else if (data.state == 5) {
+                        $("#state").html("已弃用");
+                    }
+                    $("#projectInterfaceId").val(data.id);
+                    $("#url").html(data.url);
+                    $("#name").html(data.name);
+                    $("#desc").html(data.depict);
+                    var parameters = JSON.parse(data.parameter);
+                    for (let i = 0; i < parameters.length; i++) {
+                        $("#parameters").append($(".parameter").html());
+                        $("#parameters .row:first-of-type").find("#parameterName").html(parameters[i].name);
+                        $("#parameters .row:first-of-type").find("#parameterDateType").html(parameters[i].dateType);
+                        $("#parameters .row:first-of-type").find("#parameterDesc").html(parameters[i].desc);
+                    }
+                    $("#returnStructure").val(data.returnStructure);
+                } else {
+                    alert(data.msg);
+                }
+            }
+        });
+
+        // textarea自适应高度
+        $('textarea').each(function () {
+            this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+        }).on('input', function () {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        })
+    };
+
+</script>
+</body>
+</html>

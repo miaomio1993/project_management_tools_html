@@ -32,3 +32,13 @@ function formatDate(time){
 	var ymdhms = ymd + " " + hms;
 	return ymdhms;
 }
+
+
+// 多选框选中值代码
+$("[type='checkbox']").click(function() {
+    if (this.checked){
+        $(this).val(true);
+    } else{
+        $(this).val(false);
+    }
+});

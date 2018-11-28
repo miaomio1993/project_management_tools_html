@@ -173,7 +173,8 @@
                         str += "    <td>" + data[i].type + "</td>";
                         str += "    <td style='padding: 8px;'>";
                         str += "        <div class='btn-group'>";
-                        str += "        <a type='button' class='btn btn-default btn-sm' href='up.html?projectId="+data[i].projectId+"&projectGroupId="+data[i].groupId+"&projectInterfaceId="+data[i].id+"'>UPDATE</a>";
+                        str += "        <a type='button' class='btn btn-default btn-sm' target='_blank' href='open.html?projectInterfaceId="+data[i].id+"'>OPEN</a>";
+                        str += "        <a type='button' class='btn btn-default btn-sm' target='_blank' href='up.html?projectId="+data[i].projectId+"&projectGroupId="+data[i].groupId+"&projectInterfaceId="+data[i].id+"'>UPDATE</a>";
                         str += "        <a type='button' class='btn btn-default btn-sm' href='#' onclick='deletes("+data[i].id+")'>DELETE</a>";
                         str += "        </div>";
                         str += "    </td>";
@@ -198,7 +199,7 @@
             alert("请选择项目或分组");
             return false;
         }
-        location.href='add.html?projectId='+projectId+"&projectGroupId="+projectGroupId;
+        window.open('add.html?projectId='+projectId+"&projectGroupId="+projectGroupId);
     });
 
     function deletes(id) {
@@ -211,7 +212,7 @@
                 },
                 success: function (data) {
                     alert(data.msg);
-                    getList();
+                    getProjectInterfaceList();
                 }
             });
         }

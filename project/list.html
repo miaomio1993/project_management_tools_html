@@ -2,7 +2,6 @@
 <head>
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="../assets/css/xenon-core.css">
     <link rel="stylesheet" href="../assets/css/xenon-forms.css">
     <link rel="stylesheet" href="../assets/css/xenon-components.css">
@@ -19,7 +18,7 @@
     </div>
     <div class="col-sm-10">
         <div class='btn-group pull-right'>
-            <a type='button' class='btn btn-default btn-sm' href='project/add.html'>INSERT</a>
+            <a type='button' class='btn btn-default btn-sm' href='add.html'>INSERT</a>
         </div>
     </div>
 </div>
@@ -28,7 +27,6 @@
 </div>
 
 <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="https://cdn.bootcss.com/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 <script src="../assets/js/initialization.js"></script>
 
 <script type="text/javascript">
@@ -103,7 +101,7 @@
     });
 
     // 删除项目
-    function del(projectId){
+    function del(projectId) {
         if (confirm("是否删除?")) {
             $.ajax({
                 type: 'post',
@@ -111,7 +109,7 @@
                 data: {
                     projectId: projectId,
                 },
-                success: function(data) {
+                success: function (data) {
                     alert(data.msg);
                 }
             });
