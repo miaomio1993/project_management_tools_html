@@ -33,7 +33,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">是否显示</label>
                 <div class="col-sm-6">
-                    <input id="isShow" type="checkbox" value="true" checked class="iswitch-lg iswitch-info"/>
+                    <input id="isShow" type="checkbox" checked class="iswitch-lg iswitch-info"/>
                 </div>
             </div>
             <div class="form-group">
@@ -53,7 +53,6 @@
     function add() {
         var name = $("#name").val();
         var depict = $("#depict").val();
-        var isShow = $("#isShow").val();
         if (name == null || name == "") {
             alert("请输入项目名称");
             return;
@@ -68,7 +67,7 @@
             data: {
                 name: name,
                 depict: depict,
-                isShow: isShow
+                isShow: $("#isShow").prop("checked")
             },
             success: function (data) {
                 alert(data.msg);

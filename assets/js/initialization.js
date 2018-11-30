@@ -34,8 +34,8 @@ function formatDate(time){
 // 多选框选中值代码
 $("[type='checkbox']").click(function() {
     if (this.checked){
-        $(this).val("必填");
+        $(this).val("ture");
     } else{
-        $(this).val("非必填");
+        $(this).val("false");
     }
 });

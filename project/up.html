@@ -67,8 +67,9 @@
                     $("#id").val(data.id);
                     $("#name").val(data.name);
                     $("#depict").val(data.depict);
-                    if (data.isShow == 2) {
-                        $('#isShow').click();
+                    alert(data.isShow);
+                    if (data.isShow == "不显示") {
+                        $("#isShow").click();
                     }
                 } else {
                     alert(data.msg);
@@ -95,7 +96,7 @@
                 projectId: $("#projectId").val(),
                 name: name,
                 depict: depict,
-                isShow: $("#isShow").val()
+                isShow: $("#isShow").prop("checked")
             },
             success: function (data) {
                 alert(data.msg);
@@ -103,17 +104,6 @@
         });
     }
 
-    // 删除项目
-    function deProject(id) {
-        $.ajax({
-            type: 'get',
-            url: url + "project/del",
-            async: false,
-            data: {
-                id: $("#id").val(),
-            },
-        });
-    }
 </script>
 </body>
 </html>
