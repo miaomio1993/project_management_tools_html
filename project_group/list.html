@@ -14,7 +14,7 @@
 <body>
 <div class="row" style="padding: 20px; margin: auto;">
     <div class="col-sm-2">
-        <select id="projectId" class="selectpicker">
+        <select id="projectId" class="form-control">
             <option>请选择项目</option>
         </select>
     </div>
@@ -47,7 +47,6 @@
 </div>
 
 <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="https://cdn.bootcss.com/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 <script src="../assets/js/initialization.js"></script>
 
 <script type="text/javascript">
@@ -60,7 +59,7 @@
                 if (data.code == 0) {
                     data = data.data;
                     $("#projectId").html("");
-                    var str = "<option value='0'>请选择项目</option>";
+                    var str = "<option value='全部'>请选择项目</option>";
                     for (var i = 0; i < data.length; i++) {
                         str += "<option value='" + data[i].id + "'>" + data[i].name + "</option>"
                     }
@@ -72,13 +71,14 @@
         });
     });
 
-    // 当下拉框项目值变更时触发
-    $('#projectId').on('changed.bs.select', function (e) {
-        var projectId = $(this).val();
-        if (projectId == 0) {
-            return false;
-        }
-        getList();
+    $(document).ready(function() {
+        $("#projectId").change(function() {
+            var projectId = $(this).val();
+            if (projectId == 0) {
+                return false;
+            }
+            getList();
+        });
     });
 
     function getList() {

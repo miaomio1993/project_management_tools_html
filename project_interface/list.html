@@ -14,16 +14,16 @@
 <body>
 <div class="row" style="padding: 20px; margin: auto;">
     <div class="col-sm-2">
-        <select id="projectId" class="selectpicker">
+        <select id="projectId" class="form-control">
         </select>
     </div>
     <div class="col-sm-2">
-        <select id="projectGroupId" class="selectpicker" data-live-search="true" data-size="8">
+        <select id="projectGroupId" class="form-control">
             <option>接口分组</option>
         </select>
     </div>
     <div class="col-sm-2">
-        <select id="projectInterfaceStatsId" class="selectpicker" data-size="8">
+        <select id="projectInterfaceStatsId" class="form-control">
             <option value="全部">全部</option>
             <option value="待开发">待开发</option>
             <option value="开发中">开发中</option>
@@ -64,7 +64,6 @@
 </div>
 
 <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="https://cdn.bootcss.com/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 <script src="../assets/js/initialization.js"></script>
 
 <script type="text/javascript">
@@ -101,7 +100,6 @@
                         str += "<option value='" + data[i].id + "'>" + data[i].name + "</option>"
                     }
                     $("#projectId").html(str);
-                    $('#projectId').selectpicker('refresh');
                 } else {
                     alert(data.msg);
                 }
@@ -126,7 +124,6 @@
                         str += "<option value='" + data[i].id + "'>" + data[i].name + "</option>"
                     }
                     $("#projectGroupId").html(str);
-                    $('#projectGroupId').selectpicker('refresh');
                 } else {
                     alert(data.msg);
                 }
