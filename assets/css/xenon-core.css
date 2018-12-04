@@ -4668,7 +4668,7 @@ label.cbr-inline + .cbr-inline {
 }
 .nav.nav-tabs + .tab-content {
   background: #FFF;
-  padding: 30px;
+  padding: 10px 0;
   margin-bottom: 30px;
 }
 .nav.nav-tabs + .tab-content > p:last-child,
@@ -5289,7 +5289,7 @@ blockquote small {
 .table > thead > tr > th,
 .table > tbody > tr > th,
 .table > tfood > tr > th {
-  padding: 12px 15px;
+  padding: 12px 2px;
 }
 .text-center.table > thead > tr > td,
 .text-center.table > tbody > tr > td,

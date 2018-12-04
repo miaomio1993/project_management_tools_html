@@ -32,9 +32,9 @@ function formatDate(time){
 }
 
 // 多选框选中值代码
-$("[type='checkbox']").click(function() {
+$(document).on("click","[type='checkbox']",function(){
     if (this.checked){
-        $(this).val("ture");
+        $(this).val("true");
     } else{
         $(this).val("false");
     }

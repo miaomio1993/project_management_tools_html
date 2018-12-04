@@ -71,6 +71,7 @@
         });
     });
 
+    // 下拉更新
     $(document).ready(function() {
         $("#projectId").change(function() {
             var projectId = $(this).val();
@@ -81,6 +82,7 @@
         });
     });
 
+    // 获取所有分组
     function getList() {
         $.ajax({
             type: 'post',
@@ -115,6 +117,7 @@
         });
     }
 
+    // 添加分组
     function insert() {
         var name = prompt("新的分组名称", "");
         if (name) {
@@ -133,6 +136,7 @@
         }
     }
 
+    // 修改分组
     function update(id) {
         var name = prompt("修正的分组名称", "");
         if (name) {
@@ -151,6 +155,7 @@
         }
     }
 
+    // 删除分组
     function deletes(id) {
         if (confirm("是否删除?")) {
             $.ajax({

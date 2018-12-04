@@ -19,11 +19,10 @@
     </div>
     <div class="col-sm-2">
         <select id="projectGroupId" class="form-control">
-            <option>接口分组</option>
         </select>
     </div>
     <div class="col-sm-2">
-        <select id="projectInterfaceStatsId" class="form-control">
+        <select id="projectInterfaceStats" class="form-control">
             <option value="全部">全部</option>
             <option value="待开发">待开发</option>
             <option value="开发中">开发中</option>
@@ -46,13 +45,13 @@
                 <table class="table table-model-1">
                     <thead>
                     <tr>
-                        <th>ID</th>
-                        <th title="接口名称">Interface Name</th>
-                        <th title="接口描述">Interface Desc</th>
-                        <th title="接口状态">Interface State</th>
-                        <th title="请求地址">Request Url</th>
-                        <th title="请求类型">Request Type</th>
-                        <th title="相关操作">Operation</th>
+                        <th style="width: 5%">ID</th>
+                        <th style="width: 20%">URL</th>
+                        <th style="width: 10%">名称</th>
+                        <th style="width: 40%">描述</th>
+                        <th style="width: 5%">状态</th>
+                        <!--<th>请求类型</th>-->
+                        <th style="width: 20%">操作</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -73,17 +72,18 @@
         getProjectInterfaceList();
     });
 
-    $('#projectId').on('changed.bs.select', function (e) {
-        getProjectGroupList();
-        getProjectInterfaceList();
-    });
-
-    $('#projectGroupId').on('changed.bs.select', function (e) {
-        getProjectInterfaceList();
-    });
-
-    $('#projectInterfaceStatsId').on('changed.bs.select', function (e) {
-        getProjectInterfaceList();
+    // 下拉更新
+    $(document).ready(function() {
+        $("#projectId").change(function() {
+            getProjectGroupList();
+            getProjectInterfaceList();
+        });
+        $('#projectGroupId').change(function() {
+            getProjectInterfaceList();
+        });
+        $('#projectInterfaceStats').change(function() {
+            getProjectInterfaceList();
+        });
     });
 
     function getProjectList(){
@@ -95,7 +95,7 @@
                 if (data.code == 0) {
                     data = data.data;
                     $("#projectId").html("");
-                    var str = "<option value='0'>请选择项目</option>";
+                    var str = "";
                     for (var i = 0; i < data.length; i++) {
                         str += "<option value='" + data[i].id + "'>" + data[i].name + "</option>"
                     }
@@ -118,8 +118,8 @@
             success: function (data) {
                 if (data.code == 0) {
                     data = data.data;
+                    var str = "";
                     $("#projectGroupId").html("");
-                    var str = "<option value='0'>请选择分类</option>";
                     for (var i = 0; i < data.length; i++) {
                         str += "<option value='" + data[i].id + "'>" + data[i].name + "</option>"
                     }
@@ -142,7 +142,7 @@
             data: {
                 projectId: $('#projectId').val(),
                 projectGroupId: $('#projectGroupId').val(),
-                projectInterfaceStatsId: $('#projectInterfaceStatsId').val()
+                projectInterfaceStats: $('#projectInterfaceStats').val()
             },
             success: function (data) {
                 if (data.code == 0) {
@@ -152,12 +152,12 @@
                     for (let i = 0; i < data.length; i++) {
                         str += "<tr>";
                         str += "    <td>" + data[i].id + "</td>";
+                        str += "    <td>" + data[i].url + "</td>";
                         str += "    <td>" + data[i].name + "</td>";
                         str += "    <td>" + data[i].depict + "</td>";
                         str += "    <td>" + data[i].state + "</td>";
-                        str += "    <td>" + data[i].url + "</td>";
-                        str += "    <td>" + data[i].type + "</td>";
-                        str += "    <td style='padding: 8px;'>";
+                        /*str += "    <td>" + data[i].type + "</td>";*/
+                        str += "    <td>";
                         str += "        <div class='btn-group'>";
                         str += "        <a type='button' class='btn btn-default btn-sm' target='_blank' href='open.html?projectInterfaceId="+data[i].id+"'>OPEN</a>";
                         str += "        <a type='button' class='btn btn-default btn-sm' target='_blank' href='up.html?projectId="+data[i].projectId+"&projectGroupId="+data[i].groupId+"&projectInterfaceId="+data[i].id+"'>UPDATE</a>";
@@ -174,6 +174,7 @@
         });
     }
 
+    // 跳转添加接口
     $("#add").click(function (){
         var projectId = $('#projectId').val();
         var projectGroupId = $('#projectGroupId').val();
@@ -188,6 +189,7 @@
         window.open('add.html?projectId='+projectId+"&projectGroupId="+projectGroupId);
     });
 
+    // 接口删除
     function deletes(id) {
         if (confirm("是否删除?")) {
             $.ajax({

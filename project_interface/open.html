@@ -63,6 +63,36 @@
         <div class="form-group">
             <textarea id="returnStructure" class="form-control" contenteditable="true" placeholder="接口JSON返回值" readonly/></textarea>
         </div>
+
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#home" data-toggle="tab">
+                    <span class="visible-xs"><i class="fa-home"></i></span>
+                    <span class="hidden-xs">Home</span>
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="home">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label id="parameterName"></label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label id="parameterDateType"></label>
+                    </div>
+                    <div class="col-sm-1">
+                        <label id="isNotEmpty"></label>
+                    </div>
+                    <div class="col-sm-5">
+                        <label id="parameterDesc"></label>
+                    </div>
+                    <div class="col-sm-2">
+                        <input id="parameterDesc" type="text" class="form-control" placeholder="参数注释"/>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -75,7 +105,10 @@
         <div class="col-sm-2">
             <label id="parameterDateType"></label>
         </div>
-        <div class="col-sm-7">
+        <div class="col-sm-2">
+            <label id="isNotEmpty"></label>
+        </div>
+        <div class="col-sm-5">
             <label id="parameterDesc"></label>
         </div>
     </div>
@@ -119,10 +152,15 @@
                     var parameters = JSON.parse(data.parameter);
                     for (let i = 0; i < parameters.length; i++) {
                         $("#parameters").append($(".parameter").html());
-                        $("#parameters .row:first-of-type").find("#parameterName").html(parameters[i].name);
-                        $("#parameters .row:first-of-type").find("#parameterDateType").html(parameters[i].dateType);
-                        $("#parameters .row:first-of-type").find("#parameterDesc").html(parameters[i].desc);
+                        $("#parameters .row:last").find("#parameterName").html(parameters[i].name);
+                        $("#parameters .row:last").find("#parameterDateType").html(parameters[i].dateType);
+                        $("#parameters .row:last").find("#isNotEmpty").html(parameters[i].isNotEmpty=="true" ? '必填' : '非必填');
+                        $("#parameters .row:last").find("#parameterDesc").html(parameters[i].desc);
                     }
+                    $(".tab-pane").find("#parameterName").html(parameters[i].name);
+                    $(".tab-pane").find("#parameterDateType").html(parameters[i].dateType);
+                    $(".tab-pane").find("#isNotEmpty").html(parameters[i].isNotEmpty ? '必填' : '非必填');
+                    $(".tab-pane").find("#parameterDesc").html(parameters[i].desc);
                     $("#returnStructure").val(data.returnStructure);
                 } else {
                     alert(data.msg);
@@ -130,14 +168,21 @@
             }
         });
 
-        // textarea自适应高度
-        $('textarea').each(function () {
-            this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
-        }).on('input', function () {
-            this.style.height = 'auto';
-            this.style.height = (this.scrollHeight) + 'px';
-        })
+
     };
+
+    // 添加参数
+    function add() {
+
+    }
+
+    // textarea自适应高度
+    $('textarea').each(function () {
+        this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+    }).on('input', function () {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+    })
 
 </script>
 </body>
