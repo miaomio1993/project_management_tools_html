@@ -11,6 +11,14 @@
     <link rel="stylesheet" href="../assets/css/custom.css">
     <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
     <title>查看接口</title>
+
+    <style>
+        #parameters [class ^= "col-sm"], .tab-content [class ^= "col-sm"]{
+            height: 34px;
+            line-height: 34px;
+            margin-bottom: 3px;
+        }
+    </style>
 </head>
 
 <body style="padding: 15px 10%;">
@@ -66,50 +74,15 @@
 
         <ul class="nav nav-tabs">
             <li class="active">
-                <a href="#home" data-toggle="tab">
+                <a href="#addParam" data-toggle="tab">
                     <span class="visible-xs"><i class="fa-home"></i></span>
-                    <span class="hidden-xs">Home</span>
+                    <span class="hidden-xs">添加</span>
                 </a>
             </li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane active" id="home">
-                <div class="row">
-                    <div class="col-sm-2">
-                        <label id="parameterName"></label>
-                    </div>
-                    <div class="col-sm-2">
-                        <label id="parameterDateType"></label>
-                    </div>
-                    <div class="col-sm-1">
-                        <label id="isNotEmpty"></label>
-                    </div>
-                    <div class="col-sm-5">
-                        <label id="parameterDesc"></label>
-                    </div>
-                    <div class="col-sm-2">
-                        <input id="parameterDesc" type="text" class="form-control" placeholder="参数注释"/>
-                    </div>
-                </div>
+            <div class="tab-pane active" id="addParam">
             </div>
-        </div>
-    </div>
-</div>
-
-<!-- 参数模板 -->
-<div class="hidden parameter">
-    <div class="row">
-        <div class="col-sm-3">
-            <label id="parameterName"></label>
-        </div>
-        <div class="col-sm-2">
-            <label id="parameterDateType"></label>
-        </div>
-        <div class="col-sm-2">
-            <label id="isNotEmpty"></label>
-        </div>
-        <div class="col-sm-5">
-            <label id="parameterDesc"></label>
         </div>
     </div>
 </div>
@@ -128,9 +101,10 @@
 <script src="../assets/js/initialization.js"></script>
 
 <script type="text/javascript">
-    window.onload = function () {
+    $(function () {
         $("#projectInterfaceId").val(getUrlParam("projectInterfaceId"));
 
+        // 获取接口详情
         $.ajax({
             type: 'post',
             url: url + "projectInterface/getInfo",
@@ -149,41 +123,99 @@
                     $("#url").html(data.url);
                     $("#name").html(data.name);
                     $("#desc").html(data.depict);
-                    var parameters = JSON.parse(data.parameter);
-                    for (let i = 0; i < parameters.length; i++) {
-                        $("#parameters").append($(".parameter").html());
-                        $("#parameters .row:last").find("#parameterName").html(parameters[i].name);
-                        $("#parameters .row:last").find("#parameterDateType").html(parameters[i].dateType);
-                        $("#parameters .row:last").find("#isNotEmpty").html(parameters[i].isNotEmpty=="true" ? '必填' : '非必填');
-                        $("#parameters .row:last").find("#parameterDesc").html(parameters[i].desc);
-                    }
-                    $(".tab-pane").find("#parameterName").html(parameters[i].name);
-                    $(".tab-pane").find("#parameterDateType").html(parameters[i].dateType);
-                    $(".tab-pane").find("#isNotEmpty").html(parameters[i].isNotEmpty ? '必填' : '非必填');
-                    $(".tab-pane").find("#parameterDesc").html(parameters[i].desc);
                     $("#returnStructure").val(data.returnStructure);
+                    var parameters = JSON.parse(data.parameter);
+                    var str1 = "";
+                    var str2 = "";
+                    str2 += "<div class='row'>";
+                    str2 += "    <div class='col-sm-12'>";
+                    str2 += "       <input type='text' class='form-control' id='name' placeholder='名称'/>";
+                    str2 += "    </div>";
+                    str2 += "    <div class='col-sm-12'>";
+                    str2 += "       <input type='text' class='form-control' id='describe' placeholder='描述'/>";
+                    str2 += "    </div>";
+                    str2 += "</div>";
+                    for (let i = 0; i < parameters.length; i++) {
+                        // 参数列表
+                        str1 += "<div class='row'>";
+                        str1 += "    <div class='col-sm-2'>";
+                        str1 += "        <label>"+parameters[i].name+"</label>";
+                        str1 += "    </div>";
+                        str1 += "    <div class='col-sm-2'>";
+                        str1 += "        <label>"+parameters[i].dateType+"</label>";
+                        str1 += "    </div>";
+                        str1 += "    <div class='col-sm-2'>";
+                        str1 += "        <label>"+parameters[i].isNotEmpty=="true" ? '必填' : '非必填'+"</label>";
+                        str1 += "    </div>";
+                        str1 += "    <div class='col-sm-6'>";
+                        str1 += "        <label>"+parameters[i].desc+"</label>";
+                        str1 += "    </div>";
+                        str1 += "</div>";
+                        str2 += "<div class='row'>";
+                        str2 += "    <div class='col-sm-2'>";
+                        str2 += "        <label id='parameterName'>"+parameters[i].name+"</label>";
+                        str2 += "    </div>";
+                        str2 += "    <div class='col-sm-2'>";
+                        str2 += "        <label id='parameterDateType'>"+parameters[i].dateType+"</label>";
+                        str2 += "    </div>";
+                        str2 += "    <div class='col-sm-2'>";
+                        str2 += "        <label id='isNotEmpty'>"+parameters[i].isNotEmpty=="true" ? '必填' : '非必填'+"</label>";
+                        str2 += "    </div>";
+                        str2 += "    <div class='col-sm-4'>";
+                        str2 += "        <label id='parameterDesc'>"+parameters[i].desc+"</label>";
+                        str2 += "    </div>";
+                        str2 += "    <div class='col-sm-2'>";
+                        str2 += "        <input id='parameterValue' type='text' class='form-control'/>";
+                        str2 += "    </div>";
+                        str2 += "</div>";
+                    }
+                    str2 += "<button class='btn btn-white pull-right' onclick='add()'>添加</button>";
+                    $("#parameters").append(str1);
+                    $("#addParam").append(str2);
                 } else {
                     alert(data.msg);
                 }
             }
         });
 
-
-    };
+        // textarea自适应高度
+        $('textarea').each(function () {
+            this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+        }).on('input', function () {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        })
+    });
 
     // 添加参数
     function add() {
-
+        var parametersList=[];
+        var parameter;
+        var parametersCount = $("#addParam").children(".row").length - 1;
+        for (let i = 0; i < parametersCount; i++) {
+            parameter={};
+            parameter.name = $("#addParam").find(".row").eq(i+1).find("#parameterName").html();
+            parameter.dateType = $("#addParam").find(".row").eq(i+1).find("#parameterDateType").html();
+            parameter.isNotEmpty = $("#addParam").find(".row").eq(i+1).find("#isNotEmpty").html();
+            parameter.desc = $("#addParam").find(".row").eq(i+1).find("#parameterDesc").html();
+            parameter.value = $("#addParam").find(".row").eq(i+1).find("#parameterValue").val();
+            parametersList[i] = parameter;
+        }
+        $.ajax({
+            type: 'post',
+            url: url + "projectInterfaceUsage/add",
+            async: false,
+            data: {
+                interfaceId: $("#projectInterfaceId").val(),
+                name: $("#addParam #name").val(),
+                describe: $("#addParam #describe").val(),
+                parameter : JSON.stringify(parametersList)
+            },
+            success: function (data) {
+                alert(data.msg);
+            }
+        });
     }
-
-    // textarea自适应高度
-    $('textarea').each(function () {
-        this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
-    }).on('input', function () {
-        this.style.height = 'auto';
-        this.style.height = (this.scrollHeight) + 'px';
-    })
-
 </script>
 </body>
 </html>
