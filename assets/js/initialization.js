@@ -1,5 +1,5 @@
 // 全局url
-var url = "http://192.168.3.146:8089/smmp/";
+var url = "http://192.168.2.88:8089/smmp/";
 
 // 全局ajax请求配置
 $.ajaxSetup({
